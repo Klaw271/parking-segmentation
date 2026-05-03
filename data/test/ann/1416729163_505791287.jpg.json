@@ -1,0 +1,290 @@
+{
+    "description": "",
+    "tags": [],
+    "size": {
+        "height": 898,
+        "width": 1600
+    },
+    "objects": [
+        {
+            "id": 1776242156,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:49:08.246Z",
+            "updatedAt": "2026-05-03T13:49:39.882Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        1421,
+                        447
+                    ],
+                    [
+                        1533,
+                        360
+                    ],
+                    [
+                        1266,
+                        178
+                    ],
+                    [
+                        1151,
+                        253
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242160,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:49:28.291Z",
+            "updatedAt": "2026-05-03T13:49:31.443Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        1537,
+                        355
+                    ],
+                    [
+                        1599,
+                        258
+                    ],
+                    [
+                        1376,
+                        129
+                    ],
+                    [
+                        1288,
+                        183
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242176,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:50:06.900Z",
+            "updatedAt": "2026-05-03T13:52:39.126Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        1273,
+                        528
+                    ],
+                    [
+                        1394,
+                        436
+                    ],
+                    [
+                        1110,
+                        231
+                    ],
+                    [
+                        1001,
+                        308
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242175,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:50:06.877Z",
+            "updatedAt": "2026-05-03T13:52:33.772Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        1116,
+                        585
+                    ],
+                    [
+                        1232,
+                        498
+                    ],
+                    [
+                        975,
+                        290
+                    ],
+                    [
+                        829,
+                        376
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242181,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:50:19.084Z",
+            "updatedAt": "2026-05-03T13:52:28.265Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        899,
+                        678
+                    ],
+                    [
+                        1088,
+                        569
+                    ],
+                    [
+                        766,
+                        335
+                    ],
+                    [
+                        591,
+                        409
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242183,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:50:34.367Z",
+            "updatedAt": "2026-05-03T13:50:51.491Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        703,
+                        783
+                    ],
+                    [
+                        874,
+                        665
+                    ],
+                    [
+                        576,
+                        402
+                    ],
+                    [
+                        389,
+                        468
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242186,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:50:40.109Z",
+            "updatedAt": "2026-05-03T13:50:44.549Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        459,
+                        876
+                    ],
+                    [
+                        658,
+                        763
+                    ],
+                    [
+                        381,
+                        471
+                    ],
+                    [
+                        162,
+                        560
+                    ]
+                ],
+                "interior": []
+            }
+        },
+        {
+            "id": 1776242199,
+            "classId": 14365762,
+            "objectId": null,
+            "description": "",
+            "geometryType": "polygon",
+            "nnCreated": false,
+            "nnUpdated": false,
+            "labelerLogin": "Klaw",
+            "createdAt": "2026-05-03T13:51:37.477Z",
+            "updatedAt": "2026-05-03T13:51:41.856Z",
+            "tags": [],
+            "classTitle": "parking_slot",
+            "points": {
+                "exterior": [
+                    [
+                        1390,
+                        132
+                    ],
+                    [
+                        1599,
+                        246
+                    ],
+                    [
+                        1599,
+                        133
+                    ],
+                    [
+                        1498,
+                        99
+                    ]
+                ],
+                "interior": []
+            }
+        }
+    ]
+}

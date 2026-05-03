@@ -1,0 +1,10 @@
+venv/
+.env
+__pycache__/
+*.pth
+*.weights
+logs/
+.pytest_cache/
+data/coco_cars/images
+data/coco_cars/masks
+.vscode/settings.json

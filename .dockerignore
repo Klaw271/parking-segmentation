@@ -1,0 +1,7 @@
+__pycache__
+*.pyc
+.pytest_cache
+venv
+.env
+.git
+data/coco_cars  # если у тебя там лежат гигабайты тестов

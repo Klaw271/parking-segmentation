@@ -1,0 +1,17 @@
+
+services:
+  parking-monitoring:
+    image: "parking-monitoring:${TAG:-latest}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mmpz_container
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models        # Проброс моделей, чтобы не пересобирать образ при смене весов
+      - ./logs:/app/logs            # Для сохранения логов на хост-машине
+    environment:
+      - ENV=production
+      - LOG_LEVEL=info
+    restart: always
