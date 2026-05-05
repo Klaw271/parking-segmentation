@@ -1,0 +1,13 @@
+services:
+  parking-monitoring:
+    image: "ghcr.io/klaw271/parking-monitoring:latest"
+    container_name: mmpz_container
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./modesl:/app/models
+      - ./logs:/app/logs
+    environment:
+      - ENV=production
+    restart: unless-stopped
+
