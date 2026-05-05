@@ -1,0 +1,33 @@
+- hosts: cluster
+  become: yes
+  tasks:
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+        state: present
+        update_cache: yes
+
+    - name: Create app directoty
+      file:
+        path: /opt/parking-segmentation
+        state: directory
+
+    - name: Copy docker-compose.yml
+      copy:
+         src: ./docker-compose.yml
+         dest: /opt/parking-segmentation/docker-compose.yml
+
+    - name: Log into GitHub Container Registry
+      docker_login:
+        registry: ghcr.io
+        username: ${{ secrets.GHCR_USERNAME }}
+        password: ${{ secrets.GHCR_TOKEN }}
+        reauthorize: yes
+
+    - name: Start service
+      command: docker compose up -d
+      args:
+         chdir: /opt/parking-segmentation
