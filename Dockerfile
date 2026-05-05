@@ -28,7 +28,7 @@ COPY requirements.txt .
 # Устанавливаем библиотеки (используем --no-cache-dir для уменьшения размера образа)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 2. КОПИРУЕМ ТЕСТЫ (добавь эту строку!)
+# 2. КОПИРУЕМ ТЕСТЫ
 COPY unit_tests/ ./unit_tests/
 
 # Копируем исходный код и веса моделей
