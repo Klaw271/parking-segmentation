@@ -15,13 +15,12 @@ class OccupancyAnalyzer:
             data = json.load(f)
 
         polygons = []
-        for obj in data["objects"]:
-            if obj["classTitle"] == "parking_slot":
-                poly = np.array(obj["points"]["exterior"], dtype=np.int32)
-                polygons.append(poly)
-
+        for obj in data.get("objects", []):
+            if obj.get("classTitle") == "parking_slot" and obj.get("geometryType") == "polygon":
+                points = obj["points"]["exterior"]
+                polygons.append(np.array(points, dtype=np.int32))
+                
         return polygons
-
     @staticmethod
     def check_occupancy(mask: np.ndarray, polygons: List[np.ndarray]) -> List[bool]:
         results = []

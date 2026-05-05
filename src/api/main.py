@@ -16,7 +16,7 @@ from src.api.schemas import (
     DetectResponse
 )
 
-from src.api.validators import validate_image, validate_json
+from src.api.validators import validate_image, validate_image_and_json_size, validate_json
 
 import torch
 
@@ -237,7 +237,12 @@ async def full_pipeline(
         status: List[bool]
     """
     validate_image(image_file)
-    validate_json(ann_file)
+    
+    annotation = await validate_json(ann_file)
+    
+    image_content = await image_file.read()
+    validate_image_and_json_size(image_content, annotation)
+    await image_file.seek(0)
 
     # --- временные файлы ---
     with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
@@ -301,7 +306,12 @@ async def full_pipeline_visualize(
         - occupancy coloring
     """
     validate_image(image_file)
-    validate_json(ann_file)
+    
+    annotation = await validate_json(ann_file)
+    
+    image_content = await image_file.read()
+    validate_image_and_json_size(image_content, annotation)
+    await image_file.seek(0)
 
     # --- сохраняем временные файлы ---
     with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
