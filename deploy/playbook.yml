@@ -17,7 +17,7 @@
 
     - name: Copy docker-compose.yml
       copy:
-         src: ./docker-compose.yml
+         src: ../docker-compose.yml
          dest: /opt/parking-segmentation/docker-compose.yml
 
     - name: Log into GitHub Container Registry
