@@ -22,9 +22,9 @@
 
     - name: Log into GitHub Container Registry
       docker_login:
-        registry: ghcr.io
-        username: ${{ secrets.GHCR_USERNAME }}
-        password: ${{ secrets.GHCR_TOKEN }}
+        registry_url: ghcr.io
+        username: "{{ ghcr_username }}"
+        password: "{{ ghcr_token }}"
         reauthorize: yes
 
     - name: Start service

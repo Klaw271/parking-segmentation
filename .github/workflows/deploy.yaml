@@ -44,4 +44,6 @@ jobs:
         uses: actions/checkout@v4
  
       - name: Run Ansible playbook
-        run: ansible-playbook -i deploy/inventory.ini deploy/playbook.yml
+        run: |
+          ansible-playbook -i deploy/inventory.ini deploy/playbook.yml \
+          --extra-vars "ghcr_username=${{ secrets.GHCR_USERNAME }} ghcr_token=${{ secrets.GHCR_TOKEN }}"
