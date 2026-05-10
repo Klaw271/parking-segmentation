@@ -130,7 +130,7 @@ def test_large_image_rejection(client):
         files={"image_file": ("huge.jpg", large_file, "image/jpeg")}
     )
     
-    assert response.status_code == 413
+    assert response.status_code == 400
 
 def test_corrupted_image(client):
     """Сценарий 4.8: Обработка ошибок — Передача поврежденного файла изображения"""

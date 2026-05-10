@@ -6,7 +6,7 @@ from tqdm import tqdm
 import shutil
 
 # ======================
-# ПУТИ (измени под себя)
+# ПУТИ
 # ======================
 coco_images_dir = "E:/ProgramFiles/Downloads/coco2017/train2017"
 coco_ann_file = "E:/ProgramFiles/Downloads/coco2017/annotations/instances_train2017.json"

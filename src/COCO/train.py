@@ -3,7 +3,7 @@ import segmentation_models_pytorch as smp
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from src.COCO.ParkingDataset import ParkingDataset
+from src.ParkingDataset import ParkingDataset
 
 # ------------------
 # DEVICE
@@ -68,7 +68,7 @@ def iou_score(pred, target, threshold=0.5):
 # ------------------
 # TRAIN LOOP
 # ------------------
-EPOCHS = 30
+EPOCHS = 20
 best_iou = 0
 
 for epoch in range(EPOCHS):

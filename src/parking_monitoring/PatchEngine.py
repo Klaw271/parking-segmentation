@@ -1,6 +1,6 @@
 import cv2
+import numpy as np
 from typing import Tuple
-
 
 class PatchEngine:
     """
@@ -11,10 +11,7 @@ class PatchEngine:
         self.patch_size = patch_size
         self.overlap = overlap
 
-    def extract(self, image_path: str):
-        img = cv2.imread(image_path)
-        if img is None:
-            raise ValueError(f"Файл {image_path} не найден")
+    def extract(self, img: np.ndarray):
 
         h, w = img.shape[:2]
         p_h, p_w = self.patch_size

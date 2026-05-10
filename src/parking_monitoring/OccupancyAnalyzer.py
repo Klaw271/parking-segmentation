@@ -1,7 +1,9 @@
 import numpy as np
 import cv2
 import json
-from typing import List
+from typing import Any, Dict, List
+
+from pydantic import ValidationError
 
 
 class OccupancyAnalyzer:
@@ -10,17 +12,33 @@ class OccupancyAnalyzer:
     """
 
     @staticmethod
-    def load_polygons(json_path: str) -> List[np.ndarray]:
-        with open(json_path) as f:
-            data = json.load(f)
+    def load_polygons(json_path: str, schema_class=None) -> List[np.ndarray]:
+        # 1. Читаем файл в бинарном режиме для передачи в валидатор
+        try:
+            with open(json_path, 'rb') as f:
+                content = f.read()
+        except FileNotFoundError:
+            raise ValueError(f"File not found: {json_path}")
+        
+        # 2. Проверка расширения, пустоты и синтаксиса
+        data = OccupancyAnalyzer.validate_json_source(content, json_path)
 
+        # 3. Валидация структуры
+        if schema_class:
+            annotations = OccupancyAnalyzer.validate_annotation_structure(data, schema_class)
+
+        # 4. Основная логика извлечения
         polygons = []
         for obj in data.get("objects", []):
             if obj.get("classTitle") == "parking_slot" and obj.get("geometryType") == "polygon":
-                points = obj["points"]["exterior"]
-                polygons.append(np.array(points, dtype=np.int32))
+                # Добавляем базовую проверку наличия ключей в объекте
+                if "points" in obj and "exterior" in obj["points"]:
+                    points = obj["points"]["exterior"]
+                    polygons.append(np.array(points, dtype=np.int32))
+                    
                 
-        return polygons
+        return polygons, annotations
+
     @staticmethod
     def check_occupancy(mask: np.ndarray, polygons: List[np.ndarray]) -> List[bool]:
         results = []
@@ -58,3 +76,34 @@ class OccupancyAnalyzer:
 
         return results
 
+    @staticmethod
+    def validate_json_source(content: bytes, filename: str = "") -> Dict[str, Any]:
+        """
+        Проверка JSON: расширение, пустота, синтаксис.
+        """
+        # 1. Проверка расширения
+        if filename and not filename.endswith(".json"):
+            raise ValueError("File must have .json extension")
+
+        # 2. Проверка на пустоту
+        if len(content) == 0:
+            raise ValueError("Empty JSON file")
+
+        # 3. Проверка синтаксиса
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            raise ValueError("Invalid JSON format: syntax error")
+
+    @staticmethod
+    def validate_annotation_structure(data: Dict[str, Any], schema_class) -> Any:
+        """
+        Проверка соответствия схеме Pydantic и наличия объектов.
+        """
+        try:
+            annotation = schema_class.model_validate(data)
+            if not annotation.objects:
+                raise ValueError("The parking zones list is empty. Provide at least one polygon.")
+            return annotation
+        except ValidationError as e:
+            raise ValueError(f"Annotation schema mismatch: {e.errors()}")

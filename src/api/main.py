@@ -1,31 +1,24 @@
-from fastapi import FastAPI, UploadFile, File, Request
-from fastapi.responses import StreamingResponse, JSONResponse
-import tempfile
-import shutil
-import os
-import cv2
+import contextlib
 import io
-import numpy as np
+import os
+import shutil
+import tempfile
+from typing import Union, Tuple, Iterator
 
+import torch
+from fastapi import FastAPI, HTTPException, UploadFile, File, Request
+from fastapi.responses import StreamingResponse, JSONResponse
+
+from src.parking_monitoring.ParkingPipeline import ParkingPipeline
 from src.parking_monitoring.ImageQualityAnalyzer import ImageQualityAnalyzer
 from src.parking_monitoring.CarDetector import CarDetector
 from src.parking_monitoring.OccupancyAnalyzer import OccupancyAnalyzer
-
-from src.api.schemas import (
-    Full_pipelineResponse,
-    DetectResponse
-)
-
-from src.api.validators import validate_image, validate_image_and_json_size, validate_json
-
-import torch
-
+from src.api.schemas import Full_pipelineResponse, DetectResponse
 
 app = FastAPI(title="Parking Detection API")
 
-
 # =========================
-# ИНИЦИАЛИЗАЦИЯ (1 раз)
+# ИНИЦИАЛИЗАЦИЯ
 # =========================
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -36,374 +29,136 @@ detector = CarDetector(
     overlap=320,
     threshold=0.3
 )
-
 quality_analyzer = ImageQualityAnalyzer()
 parking_analyzer = OccupancyAnalyzer()
-
+# Инициализируем pipeline как экземпляр класса
+pipeline = ParkingPipeline(model_path="src/models/best_linknet.pth")
 
 # =========================
-# HEALTHCHECK
-# Проверка доступности сервиса
+# УНИВЕРСАЛЬНЫЙ МЕНЕДЖЕР ФАЙЛОВ
 # =========================
+@contextlib.contextmanager
+def temp_files(*upload_files: UploadFile) -> Iterator[Union[str, Tuple[str, ...]]]:
+    paths = []
+    try:
+        for file in upload_files:
+            suffix = os.path.splitext(file.filename)[1] or ".tmp"
+            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+                shutil.copyfileobj(file.file, tmp)
+                paths.append(tmp.name)
+        
+        yield paths[0] if len(paths) == 1 else tuple(paths)
+    finally:
+        for path in paths:
+            if os.path.exists(path):
+                os.remove(path)
+
+# =========================
+# API ENDPOINTS
+# =========================
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
-# =========================
-# QUALITY CHECK (METRIC API)
-# Оценка качества изображения на основе edge-density
-# Используется для фильтрации плохих входных данных
-# =========================
 @app.post("/quality")
-async def check_quality(
-    image_file: UploadFile = File(...)
-):
-    """
-    Input:
-        image_file (jpg/png)
+async def check_quality(image_file: UploadFile = File(...)):
+    with temp_files(image_file) as path:
+        return quality_analyzer.analyze(path, visualize=False, content_type=image_file.content_type)
 
-    Output:
-        edge_percent: float
-        is_good_quality: bool
-    """
-    validate_image(image_file)
-
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
-        shutil.copyfileobj(image_file.file, img_tmp)
-        img_path = img_tmp.name
-
-    try:
-        result = quality_analyzer.analyze(img_path, visualize=False)
-        return result
-
-    finally:
-        os.remove(img_path)
-
-# =========================
-# QUALITY VISUALIZATION
-# Визуализация границ + overlay на изображении
-# Используется для debug / анализа качества данных
-# =========================
 @app.post("/quality/image")
 async def quality_image(image_file: UploadFile = File(...)):
-    """
-    Input:
-        image_file
+    with temp_files(image_file) as path:
+        image_bytes = quality_analyzer.get_visualized_report(path, content_type=image_file.content_type)
+        return StreamingResponse(io.BytesIO(image_bytes), media_type="image/png")
 
-    Output:
-        PNG изображение:
-        - original
-        - filtered edges
-        - binary edges
-        - overlay
-    """
-    validate_image(image_file)
-    
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmp:
-        shutil.copyfileobj(image_file.file, tmp)
-        path = tmp.name
-
-    try:
-        img = cv2.imread(path)
-
-        filtered, edges = quality_analyzer.process(img)
-        result_img = quality_analyzer.visualize_image(img, filtered, edges)
-
-        _, buffer = cv2.imencode(".png", result_img)
-
-        return StreamingResponse(
-            io.BytesIO(buffer.tobytes()),
-            media_type="image/png"
-        )
-
-    finally:
-        os.remove(path)
-
-# =========================
-# CAR DETECTION (CORE ML API)
-# Patch-based сегментация автомобилей
-# Возвращает плотность машин на изображении
-# =========================
 @app.post("/detect", response_model=DetectResponse)
-async def detect_cars(
-    image_file: UploadFile = File(...)
-):
-    """
-    Input:
-        image_file
+async def detect_cars(image_file: UploadFile = File(...)):
+    with temp_files(image_file) as path:
+        try:
+            mask = detector.detect_patches(path, content_type=image_file.content_type)
+            if mask.size == 0:
+                 raise HTTPException(status_code=400, detail="Invalid image format")
+                 
+            return {
+                "mask_shape": mask.shape,
+                "car_pixel_ratio": float(mask.mean())
+            }
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
-    Output:
-        mask_shape: [H, W]
-        car_pixel_ratio: float (доля пикселей машин)
-    """
-    validate_image(image_file)
+@app.post("/detect_cars_image")
+async def detect_cars_image(image_file: UploadFile = File(...)):
+    with temp_files(image_file) as path:
+        mask = detector.detect_patches(path)
+        image_bytes = detector.visualize_detection(path, mask)
+        return StreamingResponse(io.BytesIO(image_bytes), media_type="image/png")
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
-        shutil.copyfileobj(image_file.file, img_tmp)
-        img_path = img_tmp.name
-
-    try:
-        mask = detector.detect_patches(img_path)
-
-        # можно вернуть статистику по маске
-        coverage = float(mask.mean())
-
-        return {
-            "mask_shape": mask.shape,
-            "car_pixel_ratio": coverage
-        }
-
-    finally:
-        os.remove(img_path)
-
-# =========================
-# CAR DETECTION VISUALIZATION
-# Overlay сегментационной маски на оригинальное изображение
-# =========================        
-@app.post("/detect/image")
-async def detect_cars_image(
-    image_file: UploadFile = File(...)
-):
-    """
-    Output:
-        PNG image with:
-        - original image
-        - semi-transparent car mask (cyan overlay)
-    """
-    validate_image(image_file)
-
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
-        shutil.copyfileobj(image_file.file, img_tmp)
-        img_path = img_tmp.name
-
-    try:
-        # --- читаем изображение ---
-        img_bgr = cv2.imread(img_path)
-        img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
-
-        # --- предсказание ---
-        mask = detector.detect_patches(img_path)
-
-        # =========================
-        # OVERLAY МАСКИ
-        # =========================
-
-        overlay = img_rgb.copy()
-
-        # создаём цветную маску (например, cyan)
-        colored_mask = np.zeros_like(img_rgb)
-        mask_bin = (mask > 0.5).astype(np.uint8)
-        colored_mask[mask_bin == 1] = [0, 255, 255]
-
-        # накладываем полупрозрачно
-        blended = cv2.addWeighted(img_rgb, 0.7, colored_mask, 0.3, 0)
-
-        # обратно в BGR для OpenCV encoding
-        result_bgr = cv2.cvtColor(blended, cv2.COLOR_RGB2BGR)
-
-        _, buffer = cv2.imencode(".png", result_bgr)
-
-        return StreamingResponse(
-            io.BytesIO(buffer.tobytes()),
-            media_type="image/png"
-        )
-
-    finally:
-        os.remove(img_path)
-
-# =========================
-# FULL PIPELINE (BATCH ANALYSIS API)
-# Полный CV pipeline:
-# 1. Проверка качетсва изображения
-# 2. Сегментация автомобилей
-# 3. Анализ занятости парковочного пространства
-# =========================
 @app.post("/full_pipeline", response_model=Full_pipelineResponse)
 async def full_pipeline(
     image_file: UploadFile = File(...),
-    ann_file: UploadFile = File(...)
+    ann_file: UploadFile = File(...),
+    fail_if_low_quality: bool = True,
 ):
-    """
-    Input:
-        image_file
-        ann_file (Supervisely JSON polygons)
+    with temp_files(image_file, ann_file) as (img_path, ann_path):
+        result = pipeline.run(
+            img_path,
+            ann_path,
+            visualize=False,
+            content_type=image_file.content_type,
+            fail_if_low_quality=fail_if_low_quality,
+        )
+        if isinstance(result, dict) and result.get("status") == "error":
+            raise HTTPException(status_code=400, detail=result.get("message", "Unknown error"))
+        return result
 
-    Output:
-        quality
-        total_spots
-        occupied
-        free
-        occupancy_percent
-        status: List[bool]
-    """
-    validate_image(image_file)
-    
-    annotation = await validate_json(ann_file)
-    
-    image_content = await image_file.read()
-    validate_image_and_json_size(image_content, annotation)
-    await image_file.seek(0)
-
-    # --- временные файлы ---
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
-        shutil.copyfileobj(image_file.file, img_tmp)
-        img_path = img_tmp.name
-
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as ann_tmp:
-        shutil.copyfileobj(ann_file.file, ann_tmp)
-        ann_path = ann_tmp.name
-
-    try:
-        # 1. Качество
-        quality = quality_analyzer.analyze(img_path, visualize=False)
-
-        # 2. Детекция
-        mask = detector.detect_patches(img_path)
-
-        # 3. Полигоны
-        polygons = parking_analyzer.load_polygons(ann_path)
-
-        # 4. Анализ
-        status = parking_analyzer.check_occupancy(mask, polygons)
-
-        total = len(status)
-        occupied = sum(status)
-
-        return {
-            "quality": quality,
-            "total_spots": total,
-            "occupied": occupied,
-            "free": total - occupied,
-            "occupancy_percent": (occupied / total * 100) if total else 0,
-            "status": status
-        }
-
-    finally:
-        # --- cleanup ---
-        os.remove(img_path)
-        os.remove(ann_path)
-
-# =========================
-# FULL PIPELINE VISUALIZATION
-# End-to-end визуализация результата анализа:
-# - сегментационная маска
-# - полигоны парковочных мест
-# - статус занятости парковочных мест
-# =========================
 @app.post("/full_pipeline_visualize")
 async def full_pipeline_visualize(
     image_file: UploadFile = File(...),
-    ann_file: UploadFile = File(...)
+    ann_file: UploadFile = File(...),
+    fail_if_low_quality: bool = True,
 ):
-    """
-    Input:
-        image_file
-        ann_file (Supervisely JSON polygons)
-    Output:
-        PNG visualization:
-        - car segmentation
-        - parking slots
-        - occupancy coloring
-    """
-    validate_image(image_file)
-    
-    annotation = await validate_json(ann_file)
-    
-    image_content = await image_file.read()
-    validate_image_and_json_size(image_content, annotation)
-    await image_file.seek(0)
-
-    # --- сохраняем временные файлы ---
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as img_tmp:
-        shutil.copyfileobj(image_file.file, img_tmp)
-        img_path = img_tmp.name
-
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as ann_tmp:
-        shutil.copyfileobj(ann_file.file, ann_tmp)
-        ann_path = ann_tmp.name
-
-    try:
-        # --- загрузка изображения ---
-        img_bgr = cv2.imread(img_path)
-        img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
-
-        # --- детекция ---
-        mask = detector.detect_patches(img_path)
-
-        # --- полигоны ---
-        polygons = parking_analyzer.load_polygons(ann_path)
-
-        # --- анализ занятости ---
-        status = parking_analyzer.check_occupancy(mask, polygons)
-
-        # =========================
-        # ВИЗУАЛИЗАЦИЯ
-        # =========================
-
-        # 1. Маска (cyan)
-        overlay_mask = img_rgb.copy()
-        overlay_mask[mask == 1] = [0, 255, 255]  # cyan
-
-        combined = cv2.addWeighted(img_rgb, 0.7, overlay_mask, 0.3, 0)
-
-        # 2. Полигоны
-        poly_overlay = combined.copy()
-
-        for i, poly in enumerate(polygons):
-            color = (255, 0, 0) if status[i] else (0, 255, 0)  # red/green
-
-            # заливка
-            cv2.fillPoly(poly_overlay, [poly], color)
-
-            # контур
-            cv2.polylines(combined, [poly], True, color, 2)
-
-        # прозрачность
-        final_img = cv2.addWeighted(poly_overlay, 0.3, combined, 0.7, 0)
-
-        # =========================
-        # КОНВЕРТАЦИЯ В PNG
-        # =========================
-
-        final_bgr = cv2.cvtColor(final_img, cv2.COLOR_RGB2BGR)
-
-        _, buffer = cv2.imencode(".png", final_bgr)
-
-        return StreamingResponse(
-            io.BytesIO(buffer.tobytes()),
-            media_type="image/png"
+    with temp_files(image_file, ann_file) as (img_path, ann_path):
+        data = pipeline.run(
+            img_path,
+            ann_path,
+            visualize=False,
+            content_type=image_file.content_type,
+            fail_if_low_quality=fail_if_low_quality,
         )
+        
+        if isinstance(data, dict) and data.get("status") == "error":
+            raise HTTPException(status_code=400, detail=data.get("message", "Unknown error"))
 
-    finally:
-        os.remove(img_path)
-        os.remove(ann_path)
-    
+        image_bytes = pipeline.get_visualized_image(
+            img_path,
+            data["mask"],
+            data["polygons"],
+            data["status"],
+        )
+        return StreamingResponse(io.BytesIO(image_bytes), media_type="image/png")
+
+# =========================
+# EXCEPTION HANDLERS
+# =========================
+
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc):
     return JSONResponse(
         status_code=404,
-        content={
-            "error": "Endpoint not found",
-            "path": str(request.url)
-        }
+        content={"error": "Endpoint not found", "path": str(request.url)}
     )
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     return JSONResponse(
         status_code=500,
-        content={
-            "error": "Internal server error",
-            "detail": str(exc)
-        }
+        content={"error": "Internal server error", "detail": str(exc)}
     )
     
 @app.exception_handler(ValueError)
 async def value_error_handler(request, exc):
     return JSONResponse(
         status_code=400,
-        content={
-            "error": "Bad input",
-            "detail": str(exc)
-        }
+        content={"error": "Bad input", "detail": str(exc)}
     )

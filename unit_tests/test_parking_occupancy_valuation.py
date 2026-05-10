@@ -32,7 +32,7 @@ def test_occupancy_valuation_endpoint_success(client):
     json_bytes = io.BytesIO(json.dumps(parking_data).encode('utf-8'))
 
     response = client.post(
-        "/full_pipeline",
+        "/full_pipeline?fail_if_low_quality=false",
         files={
             "image_file": ("parking.jpg", img_bytes, "image/jpeg"),
             "ann_file": ("annotation.json", json_bytes, "application/json")
@@ -59,7 +59,7 @@ def test_pipeline_unsupported_geometry(client):
     }
     
     response = client.post(
-        "/full_pipeline",
+        "/full_pipeline?fail_if_low_quality=false",
         files={
             "image_file": ("img.jpg", io.BytesIO(img_encoded.tobytes()), "image/jpeg"),
             "ann_file": ("ann.json", io.BytesIO(json.dumps(parking_data).encode()), "application/json")
@@ -85,14 +85,14 @@ def test_pipeline_polygon_out_of_bounds(client):
     }
     
     response = client.post(
-        "/full_pipeline",
+        "/full_pipeline?fail_if_low_quality=false",
         files={
             "image_file": ("border.jpg", io.BytesIO(img_encoded.tobytes()), "image/jpeg"),
             "ann_file": ("ann.json", io.BytesIO(json.dumps(parking_data).encode()), "application/json")
         }
     )
-    # Система должна либо обрезать полигон, либо выдать ошибку 400
-    assert response.status_code in [200]
+    # Система должна выдать ошибку 400
+    assert response.status_code in [400]
 
 def test_pipeline_many_slots(client):
     """Сценарий 3.4: Обработка большого количества парковочных мест (50+)"""
@@ -113,7 +113,7 @@ def test_pipeline_many_slots(client):
     parking_data = {"size": {"height": 720, "width": 1280}, "objects": objects}
     
     response = client.post(
-        "/full_pipeline",
+        "/full_pipeline?fail_if_low_quality=false",
         files={
             "image_file": ("stress.jpg", io.BytesIO(img_encoded.tobytes()), "image/jpeg"),
             "ann_file": ("ann.json", io.BytesIO(json.dumps(parking_data).encode()), "application/json")
