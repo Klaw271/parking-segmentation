@@ -150,31 +150,31 @@ class ParkingPipeline:
 # ЗАПУСК
 # ==============================
 if __name__ == "__main__":
-    pipeline = ParkingPipeline("src/models/best_linknet.pth")
+    pipeline = ParkingPipeline("src/models/best_linknet_finetuned.pth")
 
     pipeline.run(
-        image_path = "data/test/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg",
-        json_path = "data/test/ann/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg.json"
+        image_path = "data/test/original.jpg",
+json_path = "data/test/ann/original.jpg.json"
     )
     
     
 ''' почти хорошо
-image_path = "data/test/3960b3u-960.jpg"
+image_path = "data/test/3960b3u-960.jpg",
 json_path = "data/test/ann/3960b3u-960.jpg.json"
 '''
 """ ужасно
-image_path = "data/test/41237.jpg"
+image_path = "data/test/41237.jpg",
 json_path = "data/test/ann/41237.jpg.json"
 """
 """ почти хорошо 
-image_path = "data/test/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg"
+image_path = "data/test/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg",
 json_path = "data/test/ann/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg.json"
 """
 """ хорошо
-image_path = "data/test/1416729163_505791287.jpg"
+image_path = "data/test/1416729163_505791287.jpg",
 json_path = "data/test/ann/1416729163_505791287.jpg.json"
 """
 """ плохо
-image_path = "data/test/original.jpg"
+image_path = "data/test/original.jpg",
 json_path = "data/test/ann/original.jpg.json"
 """

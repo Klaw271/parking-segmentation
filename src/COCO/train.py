@@ -3,7 +3,7 @@ import segmentation_models_pytorch as smp
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from src.ParkingDataset import ParkingDataset
+from src.COCO.ParkingDataset import ParkingDataset
 
 # ------------------
 # DEVICE
@@ -14,8 +14,8 @@ print("Device:", device)
 # ------------------
 # DATA
 # ------------------
-train_ds = ParkingDataset("./train.txt")
-val_ds   = ParkingDataset("./val.txt")
+train_ds = ParkingDataset("data/coco_cars/train.txt")
+val_ds   = ParkingDataset("data/coco_cars/val.txt")
 
 train_loader = DataLoader(train_ds, batch_size=8, shuffle=True, num_workers=0)
 val_loader   = DataLoader(val_ds, batch_size=8, shuffle=False, num_workers=0)
@@ -68,7 +68,7 @@ def iou_score(pred, target, threshold=0.5):
 # ------------------
 # TRAIN LOOP
 # ------------------
-EPOCHS = 20
+EPOCHS = 30
 best_iou = 0
 
 for epoch in range(EPOCHS):
@@ -129,7 +129,7 @@ for epoch in range(EPOCHS):
     # save best model
     if val_iou > best_iou:
         best_iou = val_iou
-        torch.save(model.state_dict(), "src/models/new_best_linknet1.pth")
+        torch.save(model.state_dict(), "best_linknet1.pth")
         print("Saved best model")
 
 print("Training finished")
