@@ -1,3 +1,4 @@
+import os
 import cv2
 import torch
 import matplotlib.pyplot as plt
@@ -20,8 +21,8 @@ class ParkingPipeline:
         self.detector = CarDetector(
             model_path=model_path,
             device=device,
-            patch_size=640,
-            overlap=320,
+            patch_size=320,
+            overlap=160,
             threshold=0.3
         )
 
@@ -64,7 +65,7 @@ class ParkingPipeline:
     
     def run(self, image_path: str, json_path: str, visualize: bool = True, content_type: str = None, fail_if_low_quality: bool | None = None):
         # 1. Проверка качества
-        quality = self.quality.analyze(image_path, visualize=visualize, content_type=content_type)
+        quality = self.quality.analyze(image_path, visualize=True, content_type=content_type)
         
         print(f"Процент границ: {quality['edge_percent']:.3f}%")
         print("Качество:", "Достаточное" if quality["is_good_quality"] else "Недостаточное")
@@ -76,7 +77,7 @@ class ParkingPipeline:
                 print("Статус: Обработка прервана из-за низкого качества")
                 return {
                     "status": "error",
-                    "message": "Качество изображения недостаточное для анализа!",
+                    "message": "Low image qulity",
                     "quality_metrics": quality
                 }
             quality["warning"] = "Low quality image, analysis continues"
@@ -150,31 +151,116 @@ class ParkingPipeline:
 # ЗАПУСК
 # ==============================
 if __name__ == "__main__":
-    pipeline = ParkingPipeline("src/models/best_linknet_finetuned.pth")
+    pipeline = ParkingPipeline("src/models/best_linknet_finetuned.pth", fail_if_low_quality=False)
+    test_images_dir = "data/test"
+    annotations_dir = os.path.join(test_images_dir, "ann")
 
-    pipeline.run(
-        image_path = "data/test/original.jpg",
-json_path = "data/test/ann/original.jpg.json"
+    image_files = sorted(
+        [f for f in os.listdir(test_images_dir)
+         if f.lower().endswith(".jpg") and os.path.isfile(os.path.join(test_images_dir, f))]
     )
-    
-    
-''' почти хорошо
-image_path = "data/test/3960b3u-960.jpg",
-json_path = "data/test/ann/3960b3u-960.jpg.json"
-'''
-""" ужасно
-image_path = "data/test/41237.jpg",
-json_path = "data/test/ann/41237.jpg.json"
-"""
-""" почти хорошо 
-image_path = "data/test/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg",
-json_path = "data/test/ann/1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg.json"
-"""
-""" хорошо
-image_path = "data/test/1416729163_505791287.jpg",
-json_path = "data/test/ann/1416729163_505791287.jpg.json"
-"""
-""" плохо
-image_path = "data/test/original.jpg",
-json_path = "data/test/ann/original.jpg.json"
-"""
+
+    if not image_files:
+        print("No JPG images found in data/test.")
+    else:
+        print(f"Found {len(image_files)} images in {test_images_dir}.")
+
+    ground_truth_occupied = {
+        # Задайте эталонные значения занятых мест здесь
+        # "filename.jpg": число_занятых_мест,
+        "1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg": 12,
+        "125409101-20150801_170422.jpg": 17,
+        "1416729163_505791287.jpg": 6,
+        "1493723007159782777.jpg": 8,
+        "164984084414064496.jpg": 6,
+        "3960b3u-960.jpg": 17,
+        "41237.jpg": 25,
+        "foto.cheb.ru-085556.jpg": 204,
+        "i (1).jpg": 44,
+        "i (2).jpg": 66,
+        "i.jpg": 14,
+        "original.jpg": 49,
+        "scale_1200.jpg": 15,
+    }
+
+    def evaluate_occupancy(predicted: int, expected: int, total: int) -> dict:
+        abs_error = abs(predicted - expected)
+        exact_match = predicted == expected
+        accuracy_score = 1.0 - abs_error / total if total else (1.0 if exact_match else 0.0)
+        if accuracy_score < 0:
+            accuracy_score = 0.0
+        return {
+            "expected": expected,
+            "predicted": predicted,
+            "absolute_error": abs_error,
+            "exact_match": exact_match,
+            "count_accuracy": accuracy_score,
+        }
+
+    summary = {
+        "processed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "compared": 0,
+        "exact_matches": 0,
+        "sum_absolute_error": 0,
+        "sum_total_spots": 0,
+        "results": []
+    }
+
+    for image_name in image_files:
+        image_path = os.path.join(test_images_dir, image_name)
+        json_name = f"{image_name}.json"
+        json_path = os.path.join(annotations_dir, json_name)
+
+        if not os.path.isfile(json_path):
+            print(f"Skipping {image_name}: annotation not found at {json_path}")
+            summary["skipped"] += 1
+            continue
+
+        print(f"\nProcessing: {image_name}")
+        try:
+            result = pipeline.run(image_path=image_path, json_path=json_path, visualize=True, fail_if_low_quality=False)
+            summary["processed"] += 1
+
+            image_data = {
+                "image": image_name,
+                "total": result["total_spots"],
+                "occupied": result["occupied"],
+                "occupancy_percent": result["occupancy_percent"]
+            }
+
+            expected = ground_truth_occupied.get(image_name)
+            if expected is not None:
+                metrics = evaluate_occupancy(result["occupied"], expected, result["total_spots"])
+                summary["compared"] += 1
+                summary["exact_matches"] += int(metrics["exact_match"])
+                summary["sum_absolute_error"] += metrics["absolute_error"]
+                summary["sum_total_spots"] += result["total_spots"]
+                image_data.update(metrics)
+                print(f"Expected occupied: {expected}")
+                print(f"Absolute error: {metrics['absolute_error']}")
+                print(f"Exact match: {metrics['exact_match']}")
+                print(f"Count accuracy: {metrics['count_accuracy'] * 100:.2f}%")
+            else:
+                print("Ground truth not specified for this image.")
+
+            summary["results"].append(image_data)
+        except Exception as exc:
+            print(f"Error processing {image_name}: {exc}")
+            summary["errors"] += 1
+
+    print("\n=== BATCH SUMMARY ===")
+    print(f"Processed: {summary['processed']}")
+    print(f"Skipped: {summary['skipped']}")
+    print(f"Errors: {summary['errors']}")
+    if summary["compared"]:
+        avg_abs_error = summary["sum_absolute_error"] / summary["compared"]
+        overall_accuracy = 1.0 - summary["sum_absolute_error"] / summary["sum_total_spots"] if summary["sum_total_spots"] else 0.0
+        exact_match_rate = summary["exact_matches"] / summary["compared"]
+        print(f"Compared images: {summary['compared']}")
+        print(f"Exact match rate: {exact_match_rate * 100:.2f}%")
+        print(f"Average absolute error: {avg_abs_error:.2f}")
+        print(f"Overall count accuracy: {overall_accuracy * 100:.2f}%")
+    else:
+        print("No ground truth values were provided for comparison.")

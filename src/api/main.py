@@ -23,16 +23,16 @@ app = FastAPI(title="Parking Detection API")
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 detector = CarDetector(
-    model_path="src/models/best_linknet.pth",
+    model_path="src/models/best_linknet_finetuned.pth",
     device=device,
-    patch_size=640,
-    overlap=320,
+    patch_size=320,
+    overlap=160,
     threshold=0.3
 )
 quality_analyzer = ImageQualityAnalyzer()
 parking_analyzer = OccupancyAnalyzer()
 # Инициализируем pipeline как экземпляр класса
-pipeline = ParkingPipeline(model_path="src/models/best_linknet.pth")
+pipeline = ParkingPipeline(model_path="src/models/best_linknet_finetuned.pth")
 
 # =========================
 # УНИВЕРСАЛЬНЫЙ МЕНЕДЖЕР ФАЙЛОВ

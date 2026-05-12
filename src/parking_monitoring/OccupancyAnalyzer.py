@@ -42,37 +42,55 @@ class OccupancyAnalyzer:
     @staticmethod
     def check_occupancy(mask: np.ndarray, polygons: List[np.ndarray]) -> List[bool]:
         results = []
+        detection_mask = (mask > 0).astype(np.uint8)
 
         for poly in polygons:
             spot_mask = np.zeros(mask.shape, dtype=np.uint8)
             cv2.fillPoly(spot_mask, [poly], 1)
+            content = cv2.bitwise_and(detection_mask, detection_mask, mask=spot_mask)
 
-            content = cv2.bitwise_and(mask, mask, mask=spot_mask)
+            spot_area = int(np.count_nonzero(spot_mask))
+            occupied_area = int(np.count_nonzero(content))
 
-            x, y, w, h = cv2.boundingRect(poly)
-            roi = content[y:y+h, x:x+w]
-
-            if roi.size == 0:
+            if spot_area == 0:
                 results.append(False)
                 continue
 
-            grid = cv2.resize(roi, (5, 5), interpolation=cv2.INTER_AREA)
-            grid = (grid > 0.4).astype(np.uint8)
+            overall_ratio = occupied_area / spot_area
 
-            total = np.sum(grid)
-            inner = np.sum(grid[1:4, 1:4])
+            inner_kernel = np.ones((7, 7), np.uint8)
+            inner_mask = cv2.erode(spot_mask, inner_kernel, iterations=1)
+            inner_area = int(np.count_nonzero(inner_mask))
+            inner_overlap = int(np.count_nonzero(cv2.bitwise_and(content, content, mask=inner_mask))) if inner_area else 0
+            inner_ratio = inner_overlap / inner_area if inner_area else 0.0
 
-            edges = (
-                np.sum(grid[0, :]) > 0,
-                np.sum(grid[4, :]) > 0,
-                np.sum(grid[:, 0]) > 0,
-                np.sum(grid[:, 4]) > 0
-            )
-
-            if (inner > 0 or sum(edges) > 1) and (total / 25 >= 0.2):
-                results.append(True)
+            occupied = False
+            if overall_ratio >= 0.30 and inner_ratio >= 0.12:
+                occupied = True
+            elif overall_ratio >= 0.45:
+                occupied = True
             else:
-                results.append(False)
+                x, y, w, h = cv2.boundingRect(poly)
+                roi = content[y:y+h, x:x+w]
+                if roi.size > 0:
+                    grid = cv2.resize(roi, (5, 5), interpolation=cv2.INTER_AREA)
+                    grid = (grid > 0).astype(np.uint8)
+
+                    total = np.sum(grid)
+                    inner = np.sum(grid[1:4, 1:4])
+                    edges = (
+                        np.sum(grid[0, :]) > 0,
+                        np.sum(grid[4, :]) > 0,
+                        np.sum(grid[:, 0]) > 0,
+                        np.sum(grid[:, 4]) > 0
+                    )
+
+                    if inner >= 2 and (total / 25 >= 0.3):
+                        occupied = True
+                    elif inner > 0 and sum(edges) >= 2 and (total / 25 >= 0.2):
+                        occupied = True
+
+            results.append(occupied)
 
         return results
 

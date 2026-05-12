@@ -1,8 +1,8 @@
 {
     "description": "",
     "size": {
-        "height": 1210,
-        "width": 1920
+        "height": 616,
+        "width": 1052
     },
     "tags": [],
     "objects": [
@@ -13,20 +13,20 @@
             "points": {
                 "exterior": [
                     [
-                        1564,
-                        980
+                        585,
+                        190
                     ],
                     [
-                        1914,
-                        989
+                        655,
+                        183
                     ],
                     [
-                        1918,
-                        1122
+                        685,
+                        333
                     ],
                     [
-                        1570,
-                        1115
+                        607,
+                        344
                     ]
                 ],
                 "interior": []
@@ -34,9 +34,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:15:46.267Z",
-            "createdAt": "2026-05-03T12:11:38.237Z",
-            "id": 1776240752,
+            "updatedAt": "2026-05-12T10:17:32.425Z",
+            "createdAt": "2026-05-12T10:17:18.867Z",
+            "id": 1777449790,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -48,20 +48,20 @@
             "points": {
                 "exterior": [
                     [
-                        1669,
-                        747
+                        657,
+                        183
                     ],
                     [
-                        1807,
-                        747
+                        727,
+                        179
                     ],
                     [
-                        1746,
-                        510
+                        756,
+                        324
                     ],
                     [
-                        1624,
-                        509
+                        686,
+                        333
                     ]
                 ],
                 "interior": []
@@ -69,9 +69,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:13:38.628Z",
-            "createdAt": "2026-05-03T12:11:58.138Z",
-            "id": 1776240759,
+            "updatedAt": "2026-05-12T10:17:44.073Z",
+            "createdAt": "2026-05-12T10:17:23.940Z",
+            "id": 1777449796,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -83,20 +83,20 @@
             "points": {
                 "exterior": [
                     [
-                        1507,
-                        508
+                        729,
+                        179
                     ],
                     [
-                        1624,
-                        508
+                        792,
+                        173
                     ],
                     [
-                        1667,
-                        743
+                        827,
+                        312
                     ],
                     [
-                        1533,
-                        742
+                        757,
+                        323
                     ]
                 ],
                 "interior": []
@@ -104,9 +104,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:13:56.303Z",
-            "createdAt": "2026-05-03T12:12:07.645Z",
-            "id": 1776240764,
+            "updatedAt": "2026-05-12T10:17:47.163Z",
+            "createdAt": "2026-05-12T10:17:44.030Z",
+            "id": 1777449864,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -118,20 +118,20 @@
             "points": {
                 "exterior": [
                     [
-                        1276,
-                        510
+                        795,
+                        173
                     ],
                     [
-                        1280,
-                        731
+                        871,
+                        162
                     ],
                     [
-                        1412,
-                        735
+                        906,
+                        303
                     ],
                     [
-                        1402,
-                        509
+                        828,
+                        314
                     ]
                 ],
                 "interior": []
@@ -139,9 +139,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:56.283Z",
-            "createdAt": "2026-05-03T12:12:17.961Z",
-            "id": 1776240767,
+            "updatedAt": "2026-05-12T10:17:53.119Z",
+            "createdAt": "2026-05-12T10:17:49.977Z",
+            "id": 1777449895,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -153,20 +153,20 @@
             "points": {
                 "exterior": [
                     [
-                        1133,
-                        732
+                        912,
+                        300
                     ],
                     [
-                        1279,
-                        732
+                        1051,
+                        283
                     ],
                     [
-                        1271,
-                        518
+                        1051,
+                        358
                     ],
                     [
-                        1140,
-                        522
+                        933,
+                        376
                     ]
                 ],
                 "interior": []
@@ -174,9 +174,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:54.181Z",
-            "createdAt": "2026-05-03T12:13:35.036Z",
-            "id": 1776240780,
+            "updatedAt": "2026-05-12T10:18:07.904Z",
+            "createdAt": "2026-05-12T10:18:03.771Z",
+            "id": 1777450018,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -188,20 +188,20 @@
             "points": {
                 "exterior": [
                     [
-                        994,
-                        733
+                        934,
+                        379
                     ],
                     [
-                        1126,
-                        736
+                        1051,
+                        362
                     ],
                     [
-                        1132,
-                        509
+                        1051,
+                        436
                     ],
                     [
-                        1014,
-                        511
+                        957,
+                        451
                     ]
                 ],
                 "interior": []
@@ -209,9 +209,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:51.317Z",
-            "createdAt": "2026-05-03T12:13:42.783Z",
-            "id": 1776240783,
+            "updatedAt": "2026-05-12T10:18:17.187Z",
+            "createdAt": "2026-05-12T10:18:09.161Z",
+            "id": 1777450057,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -223,20 +223,20 @@
             "points": {
                 "exterior": [
                     [
-                        875,
-                        730
+                        960,
+                        453
                     ],
                     [
-                        992,
-                        732
+                        1051,
+                        439
                     ],
                     [
-                        1010,
-                        510
+                        1051,
+                        526
                     ],
                     [
-                        896,
-                        515
+                        984,
+                        537
                     ]
                 ],
                 "interior": []
@@ -244,9 +244,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:49.458Z",
-            "createdAt": "2026-05-03T12:13:48.887Z",
-            "id": 1776240784,
+            "updatedAt": "2026-05-12T10:18:23.758Z",
+            "createdAt": "2026-05-12T10:18:19.477Z",
+            "id": 1777450116,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -258,20 +258,24 @@
             "points": {
                 "exterior": [
                     [
-                        724,
-                        735
+                        986,
+                        542
                     ],
                     [
-                        874,
-                        729
+                        986,
+                        538
                     ],
                     [
-                        889,
-                        514
+                        1051,
+                        530
                     ],
                     [
-                        755,
-                        511
+                        1051,
+                        615
+                    ],
+                    [
+                        1011,
+                        615
                     ]
                 ],
                 "interior": []
@@ -279,9 +283,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:46.197Z",
-            "createdAt": "2026-05-03T12:13:59.239Z",
-            "id": 1776240787,
+            "updatedAt": "2026-05-12T10:18:29.660Z",
+            "createdAt": "2026-05-12T10:18:25.190Z",
+            "id": 1777450139,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -293,20 +297,300 @@
             "points": {
                 "exterior": [
                     [
-                        582,
-                        738
+                        510,
+                        194
                     ],
                     [
-                        721,
-                        737
+                        583,
+                        190
                     ],
                     [
-                        750,
-                        509
+                        604,
+                        343
+                    ],
+                    [
+                        533,
+                        350
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:19:09.186Z",
+            "createdAt": "2026-05-12T10:18:40.795Z",
+            "id": 1777450205,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        438,
+                        200
+                    ],
+                    [
+                        509,
+                        195
+                    ],
+                    [
+                        530,
+                        350
+                    ],
+                    [
+                        454,
+                        358
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:18:56.534Z",
+            "createdAt": "2026-05-12T10:18:53.365Z",
+            "id": 1777450266,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        364,
+                        207
+                    ],
+                    [
+                        437,
+                        201
+                    ],
+                    [
+                        452,
+                        357
+                    ],
+                    [
+                        373,
+                        363
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:19:06.196Z",
+            "createdAt": "2026-05-12T10:19:02.024Z",
+            "id": 1777450303,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        168,
+                        491
+                    ],
+                    [
+                        358,
+                        473
+                    ],
+                    [
+                        359,
+                        570
+                    ],
+                    [
+                        164,
+                        585
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:19:43.047Z",
+            "createdAt": "2026-05-12T10:19:18.626Z",
+            "id": 1777450440,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        166,
+                        492
+                    ],
+                    [
+                        161,
+                        584
+                    ],
+                    [
+                        0,
+                        594
+                    ],
+                    [
+                        0,
+                        502
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:19:30.657Z",
+            "createdAt": "2026-05-12T10:19:23.567Z",
+            "id": 1777450455,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        360,
+                        473
+                    ],
+                    [
+                        555,
+                        456
+                    ],
+                    [
+                        544,
+                        554
+                    ],
+                    [
+                        361,
+                        570
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:19:55.252Z",
+            "createdAt": "2026-05-12T10:19:48.138Z",
+            "id": 1777450574,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        371,
+                        39
+                    ],
+                    [
+                        448,
+                        36
+                    ],
+                    [
+                        460,
+                        170
+                    ],
+                    [
+                        377,
+                        175
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:20:05.296Z",
+            "createdAt": "2026-05-12T10:20:02.116Z",
+            "id": 1777450628,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        450,
+                        37
+                    ],
+                    [
+                        523,
+                        31
+                    ],
+                    [
+                        538,
+                        167
+                    ],
+                    [
+                        462,
+                        170
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:20:34.362Z",
+            "createdAt": "2026-05-12T10:20:08.843Z",
+            "id": 1777450658,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        599,
+                        26
+                    ],
+                    [
+                        669,
+                        21
+                    ],
+                    [
+                        695,
+                        156
                     ],
                     [
                         619,
-                        510
+                        161
                     ]
                 ],
                 "interior": []
@@ -314,9 +598,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:14:39.558Z",
-            "createdAt": "2026-05-03T12:14:04.117Z",
-            "id": 1776240789,
+            "updatedAt": "2026-05-12T10:21:10.134Z",
+            "createdAt": "2026-05-12T10:20:16.469Z",
+            "id": 1777450691,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -328,20 +612,20 @@
             "points": {
                 "exterior": [
                     [
-                        459,
-                        729
+                        524,
+                        32
                     ],
                     [
-                        575,
-                        738
+                        597,
+                        27
                     ],
                     [
-                        615,
-                        510
+                        616,
+                        161
                     ],
                     [
-                        504,
-                        506
+                        540,
+                        166
                     ]
                 ],
                 "interior": []
@@ -349,9 +633,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:42.538Z",
-            "createdAt": "2026-05-03T12:14:09.978Z",
-            "id": 1776240791,
+            "updatedAt": "2026-05-12T10:20:26.380Z",
+            "createdAt": "2026-05-12T10:20:22.249Z",
+            "id": 1777450727,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -363,20 +647,20 @@
             "points": {
                 "exterior": [
                     [
-                        325,
-                        727
+                        673,
+                        20
                     ],
                     [
-                        453,
-                        728
+                        744,
+                        17
                     ],
                     [
-                        498,
-                        506
+                        772,
+                        151
                     ],
                     [
-                        390,
-                        509
+                        699,
+                        156
                     ]
                 ],
                 "interior": []
@@ -384,9 +668,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:14:31.163Z",
-            "createdAt": "2026-05-03T12:14:19.269Z",
-            "id": 1776240805,
+            "updatedAt": "2026-05-12T10:21:07.060Z",
+            "createdAt": "2026-05-12T10:20:34.439Z",
+            "id": 1777450795,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -398,230 +682,20 @@
             "points": {
                 "exterior": [
                     [
-                        220,
-                        727
+                        746,
+                        18
                     ],
                     [
-                        320,
-                        730
-                    ],
-                    [
-                        385,
-                        508
-                    ],
-                    [
-                        278,
-                        507
-                    ]
-                ],
-                "interior": []
-            },
-            "shape": "polygon",
-            "geometryType": "polygon",
-            "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:38.970Z",
-            "createdAt": "2026-05-03T12:14:24.641Z",
-            "id": 1776240809,
-            "classId": 14365762,
-            "nnCreated": false,
-            "nnUpdated": false
-        },
-        {
-            "classTitle": "parking_slot",
-            "description": "",
-            "tags": [],
-            "points": {
-                "exterior": [
-                    [
-                        100,
-                        715
-                    ],
-                    [
-                        212,
-                        723
-                    ],
-                    [
-                        272,
-                        514
-                    ],
-                    [
-                        168,
-                        517
-                    ]
-                ],
-                "interior": []
-            },
-            "shape": "polygon",
-            "geometryType": "polygon",
-            "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:14:43.465Z",
-            "createdAt": "2026-05-03T12:14:30.521Z",
-            "id": 1776240811,
-            "classId": 14365762,
-            "nnCreated": false,
-            "nnUpdated": false
-        },
-        {
-            "classTitle": "parking_slot",
-            "description": "",
-            "tags": [],
-            "points": {
-                "exterior": [
-                    [
-                        14,
-                        1029
-                    ],
-                    [
-                        49,
-                        915
-                    ],
-                    [
-                        316,
-                        925
-                    ],
-                    [
-                        280,
-                        1061
-                    ]
-                ],
-                "interior": []
-            },
-            "shape": "polygon",
-            "geometryType": "polygon",
-            "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:15:06.363Z",
-            "createdAt": "2026-05-03T12:14:55.852Z",
-            "id": 1776240815,
-            "classId": 14365762,
-            "nnCreated": false,
-            "nnUpdated": false
-        },
-        {
-            "classTitle": "parking_slot",
-            "description": "",
-            "tags": [],
-            "points": {
-                "exterior": [
-                    [
-                        296,
-                        1065
-                    ],
-                    [
-                        338,
-                        924
-                    ],
-                    [
-                        594,
-                        940
-                    ],
-                    [
-                        550,
-                        1086
-                    ]
-                ],
-                "interior": []
-            },
-            "shape": "polygon",
-            "geometryType": "polygon",
-            "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:15:13.003Z",
-            "createdAt": "2026-05-03T12:15:08.830Z",
-            "id": 1776240820,
-            "classId": 14365762,
-            "nnCreated": false,
-            "nnUpdated": false
-        },
-        {
-            "classTitle": "parking_slot",
-            "description": "",
-            "tags": [],
-            "points": {
-                "exterior": [
-                    [
-                        861,
-                        953
-                    ],
-                    [
-                        842,
-                        1099
-                    ],
-                    [
-                        1187,
-                        1120
-                    ],
-                    [
-                        1190,
-                        958
-                    ]
-                ],
-                "interior": []
-            },
-            "shape": "polygon",
-            "geometryType": "polygon",
-            "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:15:39.146Z",
-            "createdAt": "2026-05-03T12:15:19.426Z",
-            "id": 1776240825,
-            "classId": 14365762,
-            "nnCreated": false,
-            "nnUpdated": false
-        },
-        {
-            "classTitle": "parking_slot",
-            "description": "",
-            "tags": [],
-            "points": {
-                "exterior": [
-                    [
-                        1215,
-                        1121
-                    ],
-                    [
-                        1216,
-                        962
-                    ],
-                    [
-                        1548,
-                        978
-                    ],
-                    [
-                        1556,
-                        1131
-                    ]
-                ],
-                "interior": []
-            },
-            "shape": "polygon",
-            "geometryType": "polygon",
-            "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:15:31.761Z",
-            "createdAt": "2026-05-03T12:15:24.155Z",
-            "id": 1776240828,
-            "classId": 14365762,
-            "nnCreated": false,
-            "nnUpdated": false
-        },
-        {
-            "classTitle": "parking_slot",
-            "description": "",
-            "tags": [],
-            "points": {
-                "exterior": [
-                    [
-                        602,
-                        943
-                    ],
-                    [
-                        560,
-                        1094
-                    ],
-                    [
-                        832,
-                        1110
+                        815,
+                        12
                     ],
                     [
                         849,
-                        951
+                        147
+                    ],
+                    [
+                        774,
+                        152
                     ]
                 ],
                 "interior": []
@@ -629,9 +703,9 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-03T12:16:11.478Z",
-            "createdAt": "2026-05-03T12:15:58.018Z",
-            "id": 1776240838,
+            "updatedAt": "2026-05-12T10:21:07.046Z",
+            "createdAt": "2026-05-12T10:20:45.917Z",
+            "id": 1777450848,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false
@@ -643,20 +717,20 @@
             "points": {
                 "exterior": [
                     [
-                        1404,
-                        510
+                        818,
+                        16
                     ],
                     [
-                        1506,
-                        508
+                        897,
+                        9
                     ],
                     [
-                        1532,
-                        742
+                        927,
+                        143
                     ],
                     [
-                        1414,
-                        737
+                        852,
+                        147
                     ]
                 ],
                 "interior": []
@@ -664,9 +738,44 @@
             "shape": "polygon",
             "geometryType": "polygon",
             "labelerLogin": "Klaw",
-            "updatedAt": "2026-05-12T11:12:58.534Z",
-            "createdAt": "2026-05-03T12:17:49.124Z",
-            "id": 1776240856,
+            "updatedAt": "2026-05-12T10:21:07.044Z",
+            "createdAt": "2026-05-12T10:20:51.643Z",
+            "id": 1777450863,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        238,
+                        76
+                    ],
+                    [
+                        308,
+                        76
+                    ],
+                    [
+                        313,
+                        226
+                    ],
+                    [
+                        237,
+                        230
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T10:21:37.045Z",
+            "createdAt": "2026-05-12T10:21:29.218Z",
+            "id": 1777451067,
             "classId": 14365762,
             "nnCreated": false,
             "nnUpdated": false

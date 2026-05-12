@@ -1,0 +1,1765 @@
+{
+    "description": "",
+    "size": {
+        "height": 803,
+        "width": 1200
+    },
+    "tags": [],
+    "objects": [
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        281,
+                        745
+                    ],
+                    [
+                        415,
+                        746
+                    ],
+                    [
+                        424,
+                        690
+                    ],
+                    [
+                        292,
+                        691
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:15.609Z",
+            "createdAt": "2026-05-12T09:30:04.463Z",
+            "id": 1777441808,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        426,
+                        689
+                    ],
+                    [
+                        433,
+                        638
+                    ],
+                    [
+                        302,
+                        638
+                    ],
+                    [
+                        292,
+                        690
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:14.684Z",
+            "createdAt": "2026-05-12T09:30:17.273Z",
+            "id": 1777441818,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        435,
+                        636
+                    ],
+                    [
+                        441,
+                        589
+                    ],
+                    [
+                        317,
+                        585
+                    ],
+                    [
+                        303,
+                        636
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:06.906Z",
+            "createdAt": "2026-05-12T09:30:36.219Z",
+            "id": 1777441826,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        319,
+                        584
+                    ],
+                    [
+                        443,
+                        588
+                    ],
+                    [
+                        449,
+                        543
+                    ],
+                    [
+                        332,
+                        539
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:02.272Z",
+            "createdAt": "2026-05-12T09:30:48.960Z",
+            "id": 1777441833,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        334,
+                        538
+                    ],
+                    [
+                        451,
+                        543
+                    ],
+                    [
+                        460,
+                        499
+                    ],
+                    [
+                        348,
+                        495
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:31:50.565Z",
+            "createdAt": "2026-05-12T09:31:03.345Z",
+            "id": 1777441846,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        459,
+                        498
+                    ],
+                    [
+                        467,
+                        462
+                    ],
+                    [
+                        360,
+                        460
+                    ],
+                    [
+                        349,
+                        493
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:31:18.627Z",
+            "createdAt": "2026-05-12T09:31:12.446Z",
+            "id": 1777441851,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        467,
+                        461
+                    ],
+                    [
+                        473,
+                        429
+                    ],
+                    [
+                        370,
+                        427
+                    ],
+                    [
+                        360,
+                        459
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:31:47.721Z",
+            "createdAt": "2026-05-12T09:31:18.240Z",
+            "id": 1777441855,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        372,
+                        426
+                    ],
+                    [
+                        472,
+                        427
+                    ],
+                    [
+                        478,
+                        398
+                    ],
+                    [
+                        381,
+                        395
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:31:37.963Z",
+            "createdAt": "2026-05-12T09:31:27.519Z",
+            "id": 1777441864,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        380,
+                        393
+                    ],
+                    [
+                        479,
+                        397
+                    ],
+                    [
+                        483,
+                        365
+                    ],
+                    [
+                        387,
+                        362
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:48.253Z",
+            "createdAt": "2026-05-12T09:32:30.412Z",
+            "id": 1777441908,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        389,
+                        361
+                    ],
+                    [
+                        489,
+                        366
+                    ],
+                    [
+                        494,
+                        337
+                    ],
+                    [
+                        394,
+                        335
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:52.872Z",
+            "createdAt": "2026-05-12T09:32:49.695Z",
+            "id": 1777442050,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        394,
+                        333
+                    ],
+                    [
+                        494,
+                        337
+                    ],
+                    [
+                        502,
+                        310
+                    ],
+                    [
+                        399,
+                        306
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:32:58.298Z",
+            "createdAt": "2026-05-12T09:32:55.145Z",
+            "id": 1777442092,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        401,
+                        305
+                    ],
+                    [
+                        503,
+                        309
+                    ],
+                    [
+                        508,
+                        280
+                    ],
+                    [
+                        406,
+                        280
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:33:08.490Z",
+            "createdAt": "2026-05-12T09:33:00.141Z",
+            "id": 1777442124,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        406,
+                        277
+                    ],
+                    [
+                        507,
+                        280
+                    ],
+                    [
+                        512,
+                        255
+                    ],
+                    [
+                        410,
+                        253
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:33:29.571Z",
+            "createdAt": "2026-05-12T09:33:07.970Z",
+            "id": 1777442131,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        412,
+                        252
+                    ],
+                    [
+                        513,
+                        254
+                    ],
+                    [
+                        515,
+                        234
+                    ],
+                    [
+                        418,
+                        231
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:33:57.446Z",
+            "createdAt": "2026-05-12T09:33:14.936Z",
+            "id": 1777442137,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        420,
+                        230
+                    ],
+                    [
+                        514,
+                        233
+                    ],
+                    [
+                        521,
+                        207
+                    ],
+                    [
+                        425,
+                        207
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:33:52.505Z",
+            "createdAt": "2026-05-12T09:33:33.123Z",
+            "id": 1777442155,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        564,
+                        748
+                    ],
+                    [
+                        706,
+                        751
+                    ],
+                    [
+                        700,
+                        691
+                    ],
+                    [
+                        565,
+                        695
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:34:07.149Z",
+            "createdAt": "2026-05-12T09:34:03.969Z",
+            "id": 1777442231,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        565,
+                        694
+                    ],
+                    [
+                        701,
+                        690
+                    ],
+                    [
+                        699,
+                        638
+                    ],
+                    [
+                        567,
+                        643
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:34:16.865Z",
+            "createdAt": "2026-05-12T09:34:08.914Z",
+            "id": 1777442264,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        567,
+                        641
+                    ],
+                    [
+                        699,
+                        637
+                    ],
+                    [
+                        697,
+                        595
+                    ],
+                    [
+                        568,
+                        599
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:34:40.275Z",
+            "createdAt": "2026-05-12T09:34:20.263Z",
+            "id": 1777442353,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        572,
+                        597
+                    ],
+                    [
+                        698,
+                        593
+                    ],
+                    [
+                        698,
+                        547
+                    ],
+                    [
+                        575,
+                        549
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:37:55.931Z",
+            "createdAt": "2026-05-12T09:34:28.106Z",
+            "id": 1777442380,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        575,
+                        547
+                    ],
+                    [
+                        699,
+                        546
+                    ],
+                    [
+                        699,
+                        498
+                    ],
+                    [
+                        577,
+                        501
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:39:11.530Z",
+            "createdAt": "2026-05-12T09:34:45.101Z",
+            "id": 1777442392,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        578,
+                        499
+                    ],
+                    [
+                        699,
+                        496
+                    ],
+                    [
+                        700,
+                        455
+                    ],
+                    [
+                        579,
+                        461
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:34:58.173Z",
+            "createdAt": "2026-05-12T09:34:50.539Z",
+            "id": 1777442400,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        581,
+                        459
+                    ],
+                    [
+                        700,
+                        455
+                    ],
+                    [
+                        700,
+                        421
+                    ],
+                    [
+                        584,
+                        425
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:41:01.386Z",
+            "createdAt": "2026-05-12T09:34:58.803Z",
+            "id": 1777442405,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        591,
+                        422
+                    ],
+                    [
+                        700,
+                        418
+                    ],
+                    [
+                        699,
+                        386
+                    ],
+                    [
+                        593,
+                        389
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:35:26.745Z",
+            "createdAt": "2026-05-12T09:35:19.620Z",
+            "id": 1777442419,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        593,
+                        388
+                    ],
+                    [
+                        700,
+                        386
+                    ],
+                    [
+                        700,
+                        356
+                    ],
+                    [
+                        593,
+                        360
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:43:07.778Z",
+            "createdAt": "2026-05-12T09:35:27.876Z",
+            "id": 1777442430,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        593,
+                        359
+                    ],
+                    [
+                        700,
+                        355
+                    ],
+                    [
+                        700,
+                        325
+                    ],
+                    [
+                        594,
+                        328
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:43:40.043Z",
+            "createdAt": "2026-05-12T09:35:40.393Z",
+            "id": 1777442511,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        595,
+                        328
+                    ],
+                    [
+                        699,
+                        324
+                    ],
+                    [
+                        699,
+                        295
+                    ],
+                    [
+                        598,
+                        301
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:43:44.644Z",
+            "createdAt": "2026-05-12T09:35:49.069Z",
+            "id": 1777442575,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        598,
+                        301
+                    ],
+                    [
+                        692,
+                        295
+                    ],
+                    [
+                        690,
+                        270
+                    ],
+                    [
+                        601,
+                        274
+                    ],
+                    [
+                        598,
+                        299
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:44:32.274Z",
+            "createdAt": "2026-05-12T09:35:57.295Z",
+            "id": 1777442635,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        602,
+                        273
+                    ],
+                    [
+                        689,
+                        269
+                    ],
+                    [
+                        688,
+                        241
+                    ],
+                    [
+                        605,
+                        247
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:36:15.689Z",
+            "createdAt": "2026-05-12T09:36:12.500Z",
+            "id": 1777442654,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        710,
+                        750
+                    ],
+                    [
+                        839,
+                        752
+                    ],
+                    [
+                        831,
+                        689
+                    ],
+                    [
+                        707,
+                        691
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:36:53.244Z",
+            "createdAt": "2026-05-12T09:36:23.994Z",
+            "id": 1777442663,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        706,
+                        689
+                    ],
+                    [
+                        831,
+                        689
+                    ],
+                    [
+                        829,
+                        635
+                    ],
+                    [
+                        704,
+                        638
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:36:50.056Z",
+            "createdAt": "2026-05-12T09:36:28.882Z",
+            "id": 1777442665,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        705,
+                        636
+                    ],
+                    [
+                        829,
+                        633
+                    ],
+                    [
+                        828,
+                        593
+                    ],
+                    [
+                        702,
+                        595
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:37:08.672Z",
+            "createdAt": "2026-05-12T09:37:00.079Z",
+            "id": 1777442737,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        703,
+                        593
+                    ],
+                    [
+                        828,
+                        592
+                    ],
+                    [
+                        829,
+                        543
+                    ],
+                    [
+                        701,
+                        545
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:37:14.442Z",
+            "createdAt": "2026-05-12T09:37:11.279Z",
+            "id": 1777442815,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        700,
+                        543
+                    ],
+                    [
+                        828,
+                        540
+                    ],
+                    [
+                        827,
+                        495
+                    ],
+                    [
+                        700,
+                        499
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:37:28.773Z",
+            "createdAt": "2026-05-12T09:37:23.654Z",
+            "id": 1777442861,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        700,
+                        498
+                    ],
+                    [
+                        826,
+                        494
+                    ],
+                    [
+                        822,
+                        452
+                    ],
+                    [
+                        700,
+                        455
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:42:42.025Z",
+            "createdAt": "2026-05-12T09:37:59.160Z",
+            "id": 1777442918,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        700,
+                        455
+                    ],
+                    [
+                        822,
+                        451
+                    ],
+                    [
+                        819,
+                        415
+                    ],
+                    [
+                        701,
+                        419
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:42:33.287Z",
+            "createdAt": "2026-05-12T09:38:20.645Z",
+            "id": 1777442976,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        701,
+                        386
+                    ],
+                    [
+                        815,
+                        381
+                    ],
+                    [
+                        818,
+                        414
+                    ],
+                    [
+                        700,
+                        419
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:42:29.904Z",
+            "createdAt": "2026-05-12T09:38:34.430Z",
+            "id": 1777443023,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        701,
+                        356
+                    ],
+                    [
+                        812,
+                        352
+                    ],
+                    [
+                        815,
+                        381
+                    ],
+                    [
+                        701,
+                        385
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:42:50.546Z",
+            "createdAt": "2026-05-12T09:41:34.615Z",
+            "id": 1777443394,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        701,
+                        326
+                    ],
+                    [
+                        808,
+                        323
+                    ],
+                    [
+                        811,
+                        351
+                    ],
+                    [
+                        701,
+                        355
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:43:22.232Z",
+            "createdAt": "2026-05-12T09:43:15.234Z",
+            "id": 1777443616,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        700,
+                        295
+                    ],
+                    [
+                        803,
+                        292
+                    ],
+                    [
+                        807,
+                        323
+                    ],
+                    [
+                        701,
+                        325
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:44:04.079Z",
+            "createdAt": "2026-05-12T09:43:51.427Z",
+            "id": 1777443749,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        1001,
+                        757
+                    ],
+                    [
+                        1170,
+                        748
+                    ],
+                    [
+                        1148,
+                        673
+                    ],
+                    [
+                        982,
+                        690
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:44:57.645Z",
+            "createdAt": "2026-05-12T09:44:42.556Z",
+            "id": 1777443810,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        982,
+                        688
+                    ],
+                    [
+                        1147,
+                        671
+                    ],
+                    [
+                        1130,
+                        618
+                    ],
+                    [
+                        969,
+                        635
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:45:10.511Z",
+            "createdAt": "2026-05-12T09:45:05.025Z",
+            "id": 1777443825,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        970,
+                        633
+                    ],
+                    [
+                        1127,
+                        617
+                    ],
+                    [
+                        1112,
+                        570
+                    ],
+                    [
+                        959,
+                        584
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:45:22.149Z",
+            "createdAt": "2026-05-12T09:45:14.110Z",
+            "id": 1777443831,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        948,
+                        539
+                    ],
+                    [
+                        959,
+                        581
+                    ],
+                    [
+                        1111,
+                        568
+                    ],
+                    [
+                        1096,
+                        529
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:45:34.605Z",
+            "createdAt": "2026-05-12T09:45:22.923Z",
+            "id": 1777443837,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        948,
+                        537
+                    ],
+                    [
+                        1092,
+                        527
+                    ],
+                    [
+                        1078,
+                        484
+                    ],
+                    [
+                        936,
+                        496
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:45:40.894Z",
+            "createdAt": "2026-05-12T09:45:37.689Z",
+            "id": 1777443848,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        936,
+                        494
+                    ],
+                    [
+                        1078,
+                        481
+                    ],
+                    [
+                        1063,
+                        440
+                    ],
+                    [
+                        923,
+                        450
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:45:49.371Z",
+            "createdAt": "2026-05-12T09:45:44.684Z",
+            "id": 1777443860,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        925,
+                        448
+                    ],
+                    [
+                        1063,
+                        437
+                    ],
+                    [
+                        1048,
+                        397
+                    ],
+                    [
+                        914,
+                        407
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:45:59.718Z",
+            "createdAt": "2026-05-12T09:45:52.300Z",
+            "id": 1777443911,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        914,
+                        405
+                    ],
+                    [
+                        1046,
+                        395
+                    ],
+                    [
+                        1034,
+                        363
+                    ],
+                    [
+                        906,
+                        374
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:46:08.155Z",
+            "createdAt": "2026-05-12T09:46:01.770Z",
+            "id": 1777443925,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        907,
+                        371
+                    ],
+                    [
+                        1032,
+                        361
+                    ],
+                    [
+                        1022,
+                        330
+                    ],
+                    [
+                        899,
+                        340
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:46:18.160Z",
+            "createdAt": "2026-05-12T09:46:10.848Z",
+            "id": 1777443931,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        899,
+                        337
+                    ],
+                    [
+                        1020,
+                        328
+                    ],
+                    [
+                        1007,
+                        298
+                    ],
+                    [
+                        892,
+                        308
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:46:28.454Z",
+            "createdAt": "2026-05-12T09:46:25.235Z",
+            "id": 1777443942,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        },
+        {
+            "classTitle": "parking_slot",
+            "description": "",
+            "tags": [],
+            "points": {
+                "exterior": [
+                    [
+                        890,
+                        306
+                    ],
+                    [
+                        1004,
+                        295
+                    ],
+                    [
+                        989,
+                        259
+                    ],
+                    [
+                        883,
+                        272
+                    ]
+                ],
+                "interior": []
+            },
+            "shape": "polygon",
+            "geometryType": "polygon",
+            "labelerLogin": "Klaw",
+            "updatedAt": "2026-05-12T09:46:35.669Z",
+            "createdAt": "2026-05-12T09:46:30.722Z",
+            "id": 1777443948,
+            "classId": 14365762,
+            "nnCreated": false,
+            "nnUpdated": false
+        }
+    ],
+    "customBigData": {}
+}

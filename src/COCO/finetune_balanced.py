@@ -13,7 +13,7 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from src.BalancedParkingDataset import BalancedParkingDataset
+from src.self_made_dataset.BalancedParkingDataset import BalancedParkingDataset
 from src.COCO.ParkingDataset import ParkingDataset
 
 
