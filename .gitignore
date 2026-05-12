@@ -10,4 +10,4 @@ data/combined_dataset/masks
 data/self_made_dataset/images
 data/self_made_dataset/masks
 .vscode/settings.json
-src/models/*.pth
+*checkpoint.pth
