@@ -8,10 +8,32 @@ from src.parking_monitoring.DataValidator import DataValidator
 
 class CarDetector:
     """
-    Класс для инференса модели сегментации.
+    Детектор автомобилей на основе модели семантической сегментации.
+
+    Выполняет инференс модели Linknet для поиска припаркованных автомобилей на изображениях.
+    Поддерживает два режима: с нарезкой на патчи и полное изображение.
+
+    Attributes:
+        device (str): устройство для вычислений ('cpu' или 'cuda')
+        patch_size (int): размер патча для нарезки изображения
+        threshold (float): порог вероятности для бинаризации маски
+        model: загруженная модель Linknet
+        patch_engine (PatchEngine): модуль для нарезки и сборки патчей
+        validator (DataValidator): валидатор входных изображений
     """
 
-    def __init__(self, model_path: str, device: str, patch_size: int, overlap: int, threshold: float):
+    def __init__(self, model_path: str, device: str, patch_size: int, overlap: int, threshold: float) -> None:
+        """
+        Инициализирует детектор с загрузкой предобученной модели.
+
+        :param model_path: путь к файлу с весами модели
+        :param device: устройство для вычислений ('cpu' или 'cuda')
+        :param patch_size: размер квадратного патча в пикселях
+        :param overlap: перекрытие между соседними патчами (в пикселях)
+        :param threshold: порог вероятности для бинаризации (0-1)
+        :raises FileNotFoundError: если файл модели не найден
+        :raises RuntimeError: если модель не загружена корректно
+        """
         self.device = device
         self.patch_size = patch_size
         self.threshold = threshold
@@ -29,11 +51,31 @@ class CarDetector:
 
         self.patch_engine = PatchEngine((patch_size, patch_size), overlap)
 
-    def _preprocess(self, img):
+    def _preprocess(self, img: np.ndarray) -> torch.Tensor:
+        """
+        Предобработка изображения для подачи в модель.
+
+        Нормализует пиксели, переставляет каналы и добавляет batch dimension.
+
+        :param img: RGB изображение формата (H, W, 3) с пикселями в диапазоне 0-255
+        :return: тензор формата (1, 3, H, W) нормализованный на [0, 1] на устройстве модели
+        """
         x = torch.from_numpy(img.astype(np.float32) / 255.0)
         return x.permute(2, 0, 1).unsqueeze(0).to(self.device)
 
     def detect_patches(self, image_path: str, content_type: str = None, target_height: int = 704) -> np.ndarray:
+        """
+        Детектирует автомобили с использованием нарезки на патчи с перекрытием.
+
+        Нарезает изображение на перекрывающиеся патчи, выполняет инференс на каждом,
+        затем собирает результаты в единую маску с учётом перекрытий.
+
+        :param image_path: путь к файлу изображения
+        :param content_type: MIME-тип файла для валидации (опционально)
+        :param target_height: целевая высота изображения для масштабирования (по умолчанию 704)
+        :return: бинаризованная маска размером (H, W) с значениями 0 или 1
+        :raises ValueError: если файл не найден, повреждён или детекция не удалась
+        """
         try:
             with open(image_path, 'rb') as f:
                 content = f.read()
@@ -78,7 +120,18 @@ class CarDetector:
             raise ValueError(f"Car detection failed: {e}")
 
     def detect_full_image(self, image_path: str, content_type: str = None, target_height: int = 512) -> np.ndarray:
-        """Инференс на полном изображении без нарезки на патчи."""
+        """
+        Детектирует автомобили на полном изображении без нарезки.
+
+        Выполняет инференс на полном изображении с минимальным паддингом для выравнивания.
+        Более быстро, чем с патчами, но требует больше памяти.
+
+        :param image_path: путь к файлу изображения
+        :param content_type: MIME-тип файла для валидации (опционально)
+        :param target_height: целевая высота изображения для масштабирования (по умолчанию 512)
+        :return: бинаризованная маска размером (H, W) с значениями 0 или 1
+        :raises ValueError: если файл не найден, повреждён или детекция не удалась
+        """
         try:
             with open(image_path, 'rb') as f:
                 content = f.read()
@@ -120,7 +173,14 @@ class CarDetector:
 
     def visualize_detection(self, image_path: str, mask: np.ndarray) -> bytes:
         """
-        Накладывает маску на изображение и возвращает байты PNG файла.
+        Накладывает маску на изображение и возвращает результат в формате PNG.
+
+        Использует полупрозрачное наложение (cyan цвет) для визуализации детектированных автомобилей.
+
+        :param image_path: путь к исходному изображению
+        :param mask: бинарная маска (H, W) с автомобилями
+        :return: PNG изображение в виде байт-строки
+        :raises ValueError: если файл не найден или повреждён
         """
         # Загружаем оригинальное изображение
         with open(image_path, 'rb') as f:

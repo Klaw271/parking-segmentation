@@ -1,8 +1,27 @@
-import os
+"""
+Fine-tuning модели семантической сегментации Linknet на сбалансированном датасете парковок.
+
+Объединяет исходный датасет COCO Cars (старые данные) с новым датасетом припаркованных мест
+в соотношении 30% / 70%, использует комбинированную функцию потерь (Dice + BCE),
+аугментацию данных через AMP и сохранение лучшей модели по метрике IoU.
+
+Конфигурация:
+- Модель: Linknet с энкодером EfficientNet-B1 (от best_linknet.pth)
+- Функция потерь: 0.7 * DiceLoss + 0.3 * BCEWithLogitsLoss
+- Оптимизатор: AdamW с learning rate 1e-5
+- Scheduler: ReduceLROnPlateau (уменьшает LR при плато валидации)
+- Эпохи: 15
+- Batch size: 4
+- Замороженный энкодер: True (обучаются только decoder и голова)
+- Ускорение: AMP (Automatic Mixed Precision) для GPU
+- Соотношение: 70% новых данных + 30% старых (COCO)
+
+Сохраняет лучшую модель в best_linknet_finetuned.pth по метрике validation IoU.
+"""
+
 import sys
 from pathlib import Path
 
-# Add project root to sys.path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
@@ -21,9 +40,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print("DEVICE:", DEVICE)
 
 
-# ----------------
-# PATHS
-# ----------------
+# ПУТИ
 OLD_TRAIN_LIST = "data/coco_cars/train.txt"
 NEW_TRAIN_LIST = "data/self_made_dataset/train.txt"
 NEW_VAL_LIST = "data/self_made_dataset/valid.txt"
@@ -41,9 +58,7 @@ NEW_RATIO = 0.7
 FREEZE_ENCODER = True
 
 
-# ----------------
-# AUGMENTATIONS
-# ----------------
+# АУГМЕНТАЦИИ
 train_transform = A.Compose([
     A.HorizontalFlip(p=0.5),
     A.VerticalFlip(p=0.5),
@@ -62,9 +77,7 @@ train_transform = A.Compose([
 val_transform = A.Compose([])
 
 
-# ----------------
-# DATA
-# ----------------
+# ДАННЫЕ
 old_train_ds = ParkingDataset(
     OLD_TRAIN_LIST,
     image_dir=OLD_IMAGE_DIR,
@@ -104,9 +117,7 @@ val_loader = DataLoader(
 )
 
 
-# ----------------
-# MODEL
-# ----------------
+# МОДЕЛЬ
 model = smp.Linknet(
     encoder_name="efficientnet-b1",
     encoder_weights=None,
@@ -124,9 +135,7 @@ if FREEZE_ENCODER:
     print("Encoder frozen")
 
 
-# ----------------
-# LOSS
-# ----------------
+# ФУНКЦИЯ ПОТЕРИ
 
 dice_loss = smp.losses.DiceLoss(mode="binary")
 bce_loss = torch.nn.BCEWithLogitsLoss()
@@ -136,9 +145,7 @@ def loss_fn(pred, target):
     return 0.7 * dice_loss(pred, target) + 0.3 * bce_loss(pred, target)
 
 
-# ----------------
-# METRIC
-# ----------------
+# МЕТРИКА
 
 def iou_score(pred, target, threshold=0.5):
     pred = torch.sigmoid(pred)
@@ -149,9 +156,7 @@ def iou_score(pred, target, threshold=0.5):
     return (inter / (union + 1e-6)).mean()
 
 
-# ----------------
-# OPTIMIZER
-# ----------------
+# ОПТИМИЗАТОР
 optimizer = torch.optim.AdamW(
     filter(lambda p: p.requires_grad, model.parameters()),
     lr=LR,
@@ -167,9 +172,7 @@ scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
 scaler = torch.cuda.amp.GradScaler()
 
 
-# ----------------
-# TRAIN LOOP
-# ----------------
+# ЦИКЛ ОБУЧЕНИЯ
 def main():
     global best_iou
     best_iou = 0.0

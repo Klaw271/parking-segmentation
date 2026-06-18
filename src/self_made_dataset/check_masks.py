@@ -1,17 +1,36 @@
+"""
+Проверка консистентности датасета: поиск несовпадений между изображениями и масками.
+
+Сравнивает списки файлов в директориях изображений и масок:
+- Ищет маски, которым нет соответствующего изображения (missing masks)
+- Ищет маски без соответствующих изображений (orphaned masks)
+- Поддерживает различные расширения файлов (.jpg, .jpeg, .png, .bmp для изображений)
+
+Конфигурация:
+- Директория изображений: data/self_made_dataset/images
+- Директория масок: data/self_made_dataset/masks
+- Формат изображений: JPG, JPEG, PNG, BMP
+- Формат масок: PNG
+
+Выходная информация:
+- Количество недостающих масок
+- Количество осиротелых масок
+- Детальный список проблемных файлов
+"""
+
 import os
 from pathlib import Path
 
 IMAGE_DIR = 'data/self_made_dataset/images'
 MASK_DIR = 'data/self_made_dataset/masks'
 
-# Получаем все текущие файлы в разных директориях
 image_files = set(os.listdir(IMAGE_DIR))
 mask_files = set(os.listdir(MASK_DIR))
 
 print(f"Images: {len(image_files)}, Masks: {len(mask_files)}")
 print("\nChecking for unmatched masks...")
 
-# Для каждого образа ищем соответствующую маску
+# ЗАГРУЗКА СПИСКОВ ФАЙЛОВ
 missing_count = 0
 for img in sorted(image_files):
     if not img.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp')):
@@ -26,7 +45,7 @@ for img in sorted(image_files):
 
 print(f"\nTotal missing masks: {missing_count}")
 
-# Проверяем orphaned маски (без соответствующих образов)
+# ПРОВЕРКА ОСИРОТЕЛЫХ МАСОК (БЕЗ СООТВЕТСТВУЮЩИХ ИЗОБРАЖЕНИЙ)
 orphaned_count = 0
 for mask in sorted(mask_files):
     if not mask.lower().endswith('.png'):

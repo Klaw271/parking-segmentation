@@ -1,7 +1,9 @@
 import os
 import cv2
 import torch
+import numpy as np
 import matplotlib.pyplot as plt
+from typing import Dict, List, Tuple, Any, Optional
 
 from src.api.schemas import SuperviselyAnnotation
 from src.parking_monitoring.CarDetector import CarDetector
@@ -12,10 +14,32 @@ from src.parking_monitoring.OccupancyAnalyzer import OccupancyAnalyzer
 
 class ParkingPipeline:
     """
-    Основной pipeline обработки.
+    Основной pipeline для анализа занятости парковочных мест.
+
+    Объединяет несколько компонентов: детектор автомобилей, анализатор качества,
+    валидаторы данных и анализатор занятости. Выполняет полный цикл обработки
+    изображения от загрузки до генерации отчёта с рекомендациями по строгой проверке качества.
+
+    Attributes:
+        detector (CarDetector): детектор автомобилей на основе семантической сегментации
+        quality (ImageQualityAnalyzer): анализатор качества изображения
+        parking (OccupancyAnalyzer): анализатор занятости парковочных мест
+        validator (DataValidator): валидатор входных данных
+        fail_if_low_quality (bool): прерывать ли обработку при низком качестве
     """
 
-    def __init__(self, model_path: str, fail_if_low_quality: bool = True):
+    def __init__(self, model_path: str, fail_if_low_quality: bool = True) -> None:
+        """
+        Инициализирует pipeline со всеми компонентами.
+
+        Загружает модель детекции, автоматически выбирает устройство (GPU или CPU)
+        и инициализирует все необходимые анализаторы.
+
+        :param model_path: путь к файлу с весами модели Linknet
+        :param fail_if_low_quality: прерывать ли обработку при низком качестве (по умолчанию True)
+        :raises FileNotFoundError: если файл модели не найден
+        :raises RuntimeError: если модель не загружена корректно
+        """
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
         self.detector = CarDetector(
@@ -32,7 +56,19 @@ class ParkingPipeline:
         self.fail_if_low_quality = fail_if_low_quality
 
     @staticmethod
-    def show(img_path, mask, polygons, status):
+    def show(img_path: str, mask: np.ndarray, polygons: List[np.ndarray], status: List[bool]) -> None:
+        """
+        Показывает интерактивную визуализацию результатов анализа в два подграфика.
+
+        Слева: исходное изображение с наложением маски детекции.
+        Справа: полигоны парковочных мест (красные - занятые, зелёные - свободные).
+
+        :param img_path: путь к исходному изображению
+        :param mask: маска детекции (H, W) с автомобилями
+        :param polygons: список полигонов парковочных мест
+        :param status: список булевых значений занятости для каждого места
+        """
+        import numpy as np
         img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
 
         overlay = img.copy()
@@ -63,10 +99,41 @@ class ParkingPipeline:
 
         plt.show()
     
-    def run(self, image_path: str, json_path: str, visualize: bool = True, content_type: str = None, fail_if_low_quality: bool | None = None):
-        # 1. Проверка качества
-        quality = self.quality.analyze(image_path, visualize=True, content_type=content_type)
-        
+    def run(self, image_path: str, json_path: str, visualize: bool = True, content_type: str = None, fail_if_low_quality: Optional[bool] = None) -> Dict[str, Any]:
+        """
+        Выполняет полный цикл анализа изображения парковки и возвращает результаты.
+
+        Последовательно:
+        1. Проверяет качество изображения по количеству границ
+        2. Выполняет детекцию автомобилей с использованием нейросети
+        3. Загружает полигоны парковочных мест из JSON аннотации
+        4. Валидирует соответствие координат изображению
+        5. Определяет занятость каждого парковочного места
+        6. Генерирует отчёт с метриками и опционально визуализирует результаты
+
+        :param image_path: путь к JPG/PNG изображению парковки
+        :param json_path: путь к JSON файлу с аннотациями полигонов парковочных мест
+        :param visualize: показывать ли интерактивную визуализацию (по умолчанию True)
+        :param content_type: MIME-тип файла для валидации (опционально)
+        :param fail_if_low_quality: переопределить параметр инициализации для проверки качества (опционально)
+        :return: словарь с ключами:
+                 - quality: метрики качества изображения
+                 - total_spots: всего парковочных мест
+                 - occupied: количество занятых мест
+                 - free: количество свободных мест
+                 - occupancy_percent: процент занятости
+                 - status: список булевых значений занятости каждого места
+                 - mask: маска детекции (H, W)
+                 - polygons: список полигонов
+                 или при ошибке:
+                 - status: 'error'
+                 - message: описание ошибки
+                 - quality_metrics: метрики качества (если была проверка)
+        :raises ValueError: если файл изображения не найден, поврежден или данные невалидны
+        :raises FileNotFoundError: если JSON файл с аннотациями не найден
+        """
+        quality = self.quality.analyze(image_path, visualize=visualize, content_type=content_type)
+
         print(f"Процент границ: {quality['edge_percent']:.3f}%")
         print("Качество:", "Достаточное" if quality["is_good_quality"] else "Недостаточное")
 
@@ -83,22 +150,17 @@ class ParkingPipeline:
             quality["warning"] = "Low quality image, analysis continues"
             print("Статус: Обработка продолжается несмотря на низкое качество")
 
-        # 2. Детекция
         mask = self.detector.detect_patches(image_path, content_type=content_type)
 
-        # 3. Полигональная разметка
         polygons, annotations = self.parking.load_polygons(json_path, SuperviselyAnnotation)
-        
-        # Вызываем проверку соответствия
+
         self.validator.verify_consistency(mask, annotations)
 
-        # 4. Анализ
         status = self.parking.check_occupancy(mask, polygons)
 
-        # 5. Отчет
         total = len(polygons)
         occupied = sum(status)
-        
+
         results = {
             "quality": quality,
             "total_spots": total,
@@ -106,7 +168,7 @@ class ParkingPipeline:
             "free": total - occupied,
             "occupancy_percent": (occupied / total * 100) if total else 0,
             "status": status,
-            "mask": mask, 
+            "mask": mask,
             "polygons": polygons
         }
 
@@ -116,24 +178,37 @@ class ParkingPipeline:
         print(f"Free: {total - occupied}")
         print(f"Occupancy: {occupied / total * 100 if total else 0:.2f}%")
 
-        # 6. Визуализация
         if visualize:
             self.show(image_path, mask, polygons, status)
 
         return results
 
 
-    def get_visualized_image(self, image_path: str, mask, polygons, status) -> bytes:
-        """Генерирует PNG картинку с наложенными масками и полигонами."""
+    def get_visualized_image(self, image_path: str, mask: np.ndarray, polygons: List[np.ndarray], status: List[bool]) -> bytes:
+        """
+        Генерирует PNG изображение с наложением маски детекции и полигонов парковочных мест.
+
+        Создаёт композитный результат с двумя слоями визуализации:
+        - Маска детекции (cyan) - места, где обнаружены автомобили
+        - Полигоны парковочных мест (красные - занятые, зелёные - свободные)
+
+        :param image_path: путь к исходному изображению
+        :param mask: маска детекции (H, W) с автомобилями
+        :param polygons: список полигонов парковочных мест
+        :param status: список булевых значений занятости каждого места
+        :return: PNG изображение в виде байт-строки, готовое для отправки по HTTP
+        :raises ValueError: если файл не найден или повреждён
+        """
+        # Загружаем исходное изображение
         img_bgr = cv2.imread(image_path)
         img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
-        # 1. Наложение маски детекции (Cyan)
+        # Накладываем маску детекции (Cyan)
         overlay_mask = img_rgb.copy()
         overlay_mask[mask == 1] = [0, 255, 255]
         combined = cv2.addWeighted(img_rgb, 0.7, overlay_mask, 0.3, 0)
 
-        # 2. Наложение полигонов (Red/Green)
+        # Накладываем полигоны парковочных мест (Red для занятых, Green для свободных)
         poly_overlay = combined.copy()
         for poly, st in zip(polygons, status):
             color = (255, 0, 0) if st else (0, 255, 0)
@@ -141,15 +216,13 @@ class ParkingPipeline:
             cv2.polylines(combined, [poly], True, color, 2)
 
         final_img = cv2.addWeighted(poly_overlay, 0.3, combined, 0.7, 0)
-        
-        # Конвертация в байты
+
+        # Конвертируем результат в PNG байты
         final_bgr = cv2.cvtColor(final_img, cv2.COLOR_RGB2BGR)
         _, buffer = cv2.imencode(".png", final_bgr)
         return buffer.tobytes()
 
-# ==============================
-# ЗАПУСК
-# ==============================
+
 if __name__ == "__main__":
     pipeline = ParkingPipeline("src/models/best_linknet_finetuned.pth", fail_if_low_quality=False)
     test_images_dir = "data/test"
@@ -166,8 +239,6 @@ if __name__ == "__main__":
         print(f"Found {len(image_files)} images in {test_images_dir}.")
 
     ground_truth_occupied = {
-        # Задайте эталонные значения занятых мест здесь
-        # "filename.jpg": число_занятых_мест,
         "1027208428_0_199_2941_2048_1920x0_80_0_0_ada9346f0d8d23d0df1511f00424463e.jpg": 12,
         "125409101-20150801_170422.jpg": 17,
         "1416729163_505791287.jpg": 6,

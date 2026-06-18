@@ -1,30 +1,47 @@
-import json
 import cv2
 import numpy as np
-from pydantic import ValidationError
-from typing import Dict, Any, Tuple
+from typing import Any
+
 
 class DataValidator:
-    def __init__(self, max_file_size: int = 10 * 1024 * 1024):
+    """
+    Валидатор входных данных (изображений и аннотаций).
+
+    Проверяет формат, размер, целостность изображений и соответствие
+    координат аннотаций размерам изображения.
+
+    Attributes:
+        max_file_size (int): максимальный размер файла в байтах
+        allowed_image_types (list): разрешённые MIME-типы изображений
+    """
+
+    def __init__(self, max_file_size: int = 10 * 1024 * 1024) -> None:
+        """
+        Инициализирует валидатор с ограничением размера файла.
+
+        :param max_file_size: максимальный размер файла в байтах (по умолчанию 10 МБ)
+        """
         self.max_file_size = max_file_size
         self.allowed_image_types = ["image/jpeg", "image/png", "image/jpg"]
 
     def validate_image_source(self, content: bytes, content_type: str = None) -> np.ndarray:
         """
-        Полная проверка изображения: формат, размер, целостность.
+        Выполняет полную проверку изображения: формат, размер, целостность.
+
+        :param content: содержимое файла в виде байт-строки
+        :param content_type: MIME-тип файла для проверки формата (опционально)
+        :return: загруженное изображение формата BGR (H, W, 3) типа uint8
+        :raises ValueError: если формат неверный, файл слишком большой, пуст или повреждён
         """
-        # 1. Проверка формата (если передан тип контента)
         if content_type and content_type not in self.allowed_image_types:
             raise ValueError("Invalid image format")
 
-        # 2. Проверка размера
         file_size = len(content)
         if file_size > self.max_file_size:
             raise ValueError(f"File too large. Max: {self.max_file_size // (1024*1024)}MB")
         if file_size == 0:
             raise ValueError("Image file is empty")
 
-        # 3. Декодирование и проверка целостности
         try:
             nparr = np.frombuffer(content, np.uint8)
             img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
@@ -34,17 +51,22 @@ class DataValidator:
         except Exception:
             raise ValueError("Invalid image: file is corrupted")
 
-    def verify_consistency(self, img: np.ndarray, annotation: Any):
+    def verify_consistency(self, img: np.ndarray, annotation: Any) -> None:
         """
-        Проверка соответствия фактического разрешения картинки данным в JSON.
+        Проверяет соответствие фактического разрешения изображения данным в аннотации.
+
+        Сравнивает размеры изображения с данными в JSON аннотации и проверяет,
+        что все координаты точек находятся в границах изображения.
+
+        :param img: загруженное изображение формата BGR
+        :param annotation: объект аннотации с полями size.height, size.width, objects[].points.exterior
+        :raises ValueError: если размеры не совпадают или координаты выходят за границы
         """
         h, w = img.shape[:2]
-        # 1. Проверка по полям size в JSON
         if h != annotation.size.height or w != annotation.size.width:
             raise ValueError(f"Size mismatch: Image {w}x{h}, JSON claims {annotation.size.width}x{annotation.size.height}")
 
-        # 2. Проверка реальных координат точек (на всякий случай)
         for obj in annotation.objects:
-            points = np.array(obj.points.exterior) # или как у вас в модели
+            points = np.array(obj.points.exterior)
             if np.any(points[:, 0] >= w) or np.any(points[:, 1] >= h):
                 raise ValueError(f"Annotation points are outside image boundaries (image: {w}x{h})")

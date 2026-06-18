@@ -1,10 +1,26 @@
+"""
+Разбиение собственного датасета припаркованных мест на train/validation подмножества.
+
+Загружает все изображения из папки (форматы: JPG, PNG, BMP), случайно перемешивает их
+и разбивает на train (80%) и validation (20%) наборы. Сохраняет списки имён файлов
+в текстовые файлы с кодировкой UTF-8.
+
+Конфигурация:
+- Директория изображений: data/self_made_dataset/images
+- Выходная директория: data/self_made_dataset
+- Соотношение train/val: 80% / 20%
+- Случайное зерно: 42 (для воспроизводимости)
+- Поддерживаемые форматы: .jpg, .jpeg, .png, .bmp
+
+Выходные файлы:
+- data/self_made_dataset/train.txt (список имён файлов для обучения)
+- data/self_made_dataset/valid.txt (список имён файлов для валидации)
+"""
+
 import os
 import random
 from pathlib import Path
 
-# =====================================================
-# CONFIG
-# =====================================================
 IMAGE_DIR = "data/self_made_dataset/images"
 OUTPUT_DIR = "data/self_made_dataset"
 
@@ -13,9 +29,7 @@ RANDOM_SEED = 42
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# =====================================================
-# GET ALL IMAGES
-# =====================================================
+# ПОЛУЧЕНИЕ СПИСКА ИЗОБРАЖЕНИЙ
 image_extensions = {".jpg", ".jpeg", ".png", ".bmp"}
 
 image_files = [
@@ -30,9 +44,7 @@ if not image_files:
 
 print(f"✓ Found {len(image_files)} images")
 
-# =====================================================
-# SPLIT DATASET
-# =====================================================
+# РАЗБИЕНИЕ НА TRAIN/VAL
 random.seed(RANDOM_SEED)
 random.shuffle(image_files)
 
@@ -43,9 +55,7 @@ val_files = image_files[split_idx:]
 print(f"✓ Train: {len(train_files)} images")
 print(f"✓ Val:   {len(val_files)} images")
 
-# =====================================================
-# SAVE LISTS
-# =====================================================
+# СОХРАНЕНИЕ СПИСКОВ
 train_path = os.path.join(OUTPUT_DIR, "train.txt")
 val_path = os.path.join(OUTPUT_DIR, "valid.txt")
 

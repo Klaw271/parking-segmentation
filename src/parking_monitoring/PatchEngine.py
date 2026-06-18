@@ -1,18 +1,44 @@
 import cv2
 import numpy as np
-from typing import Tuple
+from typing import Tuple, List
+
 
 class PatchEngine:
     """
-    Нарезка изображения на патчи с перекрытием.
+    Движок для нарезки изображения на перекрывающиеся патчи.
+
+    Разбивает изображение на квадратные патчи с заданным перекрытием.
+    Обрабатывает края изображения путём паддинга нулями и гарантирует
+    обработку всей площади, включая углы.
+
+    Attributes:
+        patch_size (tuple): размер патча (высота, ширина) в пикселях
+        overlap (int): размер перекрытия между соседними патчами в пикселях
     """
 
-    def __init__(self, patch_size: Tuple[int, int], overlap: int):
+    def __init__(self, patch_size: Tuple[int, int], overlap: int) -> None:
+        """
+        Инициализирует движок нарезки с заданными параметрами.
+
+        :param patch_size: кортеж (высота, ширина) квадратного патча
+        :param overlap: размер перекрытия между патчами в пикселях
+        """
         self.patch_size = patch_size
         self.overlap = overlap
 
-    def extract(self, img: np.ndarray):
+    def extract(self, img: np.ndarray) -> Tuple[List[np.ndarray], List[Tuple[int, int]], Tuple[int, int]]:
+        """
+        Нарезает изображение на перекрывающиеся патчи.
 
+        Если изображение меньше размера патча, добавляет паддинг нулями.
+        Гарантирует обработку углов и полных краёв изображения.
+
+        :param img: входное изображение (H, W) или (H, W, C)
+        :return: кортеж (патчи, координаты, размер) где:
+                 - патчи: список массивов формата (P_H, P_W) или (P_H, P_W, C)
+                 - координаты: список кортежей (y, x) верхних левых углов патчей
+                 - размер: кортеж (высота, ширина) обработанного (с паддингом) изображения
+        """
         h, w = img.shape[:2]
         p_h, p_w = self.patch_size
         step_h = p_h - self.overlap

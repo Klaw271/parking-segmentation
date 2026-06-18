@@ -1,3 +1,29 @@
+"""
+Извлечение датасета припаркованных автомобилей из COCO Cars.
+
+Загружает все изображения, содержащие категорию "car" из датасета COCO 2017 (train),
+генерирует бинарные маски припаркованных автомобилей используя аннотации COCO,
+сохраняет как изображения так и маски в выходную директорию.
+
+Конфигурация:
+- Входной датасет COCO: COCO 2017 train (instances_train2017.json)
+- Категория для обработки: car
+- Выходная директория: coco_cars (будет создана, если не существует)
+
+Структура выхода:
+- coco_cars/images/ — исходные изображения с автомобилями
+- coco_cars/masks/ — бинарные маски припаркованных машин (PNG формат)
+- coco_cars/train_car.txt — список имён обработанных файлов
+
+Процесс:
+1. Загружает COCO датасет через pycocotools
+2. Находит все изображения с категорией "car"
+3. Для каждого изображения копирует исходный файл
+4. Генерирует маску, объединяя все сегментации машин
+5. Сохраняет маску с тем же именем в формате PNG
+6. Создаёт файл train_car.txt со списком обработанных файлов
+"""
+
 import os
 import cv2
 import numpy as np
@@ -5,9 +31,7 @@ from pycocotools.coco import COCO
 from tqdm import tqdm
 import shutil
 
-# ======================
-# ПУТИ
-# ======================
+# ПУТИ К ДАТАСЕТУ И ВЫХОДНЫМ ФАЙЛАМ
 coco_images_dir = "E:/ProgramFiles/Downloads/coco2017/train2017"
 coco_ann_file = "E:/ProgramFiles/Downloads/coco2017/annotations/instances_train2017.json"
 
@@ -18,20 +42,15 @@ out_mask_dir = os.path.join(output_dir, "masks")
 os.makedirs(out_img_dir, exist_ok=True)
 os.makedirs(out_mask_dir, exist_ok=True)
 
-# ======================
-# ЗАГРУЗКА COCO
-# ======================
 coco = COCO(coco_ann_file)
 
-# категория "car"
+# КАТЕГОРИЯ "CAR"
 cat_ids = coco.getCatIds(catNms=['car'])
 img_ids = coco.getImgIds(catIds=cat_ids)
 
 print(f"Found {len(img_ids)} images with cars")
 
-# ======================
-# ОБРАБОТКА
-# ======================
+# ОБРАБОТКА И СОХРАНЕНИЕ ИЗОБРАЖЕНИЙ И МАСОК
 for img_id in tqdm(img_ids):
 
     img_info = coco.loadImgs(img_id)[0]
@@ -64,9 +83,7 @@ for img_id in tqdm(img_ids):
     mask_path = os.path.join(out_mask_dir, file_name.replace(".jpg", ".png"))
     cv2.imwrite(mask_path, mask * 255)
 
-# ======================
-# СПИСОК ДАННЫХ
-# ======================
+# СОХРАНЕНИЕ СПИСКА ОБРАБОТАННЫХ ФАЙЛОВ
 with open(os.path.join(output_dir, "train_car.txt"), "w") as f:
     for file_name in os.listdir(out_img_dir):
         f.write(file_name + "\n")

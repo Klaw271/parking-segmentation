@@ -1,28 +1,45 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+from typing import Dict, Tuple
 
 from src.parking_monitoring.DataValidator import DataValidator
 
 
 class ImageQualityAnalyzer:
     """
-    Класс для оценки качества изображения через анализ границ.
+    Анализатор качества изображения на основе анализа границ.
+
+    Оценивает качество изображений путём подсчёта количества пикселей границ.
+    Использует фильтр Лапласиана для выделения границ и пороговую обработку
+    для бинаризации. Может визуализировать результаты анализа.
+
+    Attributes:
+        threshold_value (int): порог для бинаризации отклика фильтра (по умолчанию 200)
+        edge_percent_threshold (float): минимальный процент пикселей границ для хорошего качества
+        validator (DataValidator): валидатор входных изображений
     """
 
-    def __init__(self, threshold_value: int = 200, edge_percent_threshold: float = 1.2):
+    def __init__(self, threshold_value: int = 200, edge_percent_threshold: float = 1.2) -> None:
+        """
+        Инициализирует анализатор с заданными параметрами.
+
+        :param threshold_value: порог для бинаризации отклика фильтра (по умолчанию 200)
+        :param edge_percent_threshold: минимальный процент границ для хорошего качества (по умолчанию 1.2%)
+        """
         self.threshold_value = threshold_value
         self.edge_percent_threshold = edge_percent_threshold
         self.validator = DataValidator()
 
-    def analyze(self, image_path: str, visualize: bool = True, content_type: str = None) -> dict:
+    def analyze(self, image_path: str, visualize: bool = True, content_type: str = None) -> Dict[str, any]:
         """
-        Выполняет анализ качества изображения.
+        Выполняет анализ качества изображения по процентному содержанию границ.
 
-        :param image_path: путь к изображению
-        :param visualize: показывать ли визуализацию
-        :param content_type: MIME-тип файла для проверки формата
-        :return: словарь с метриками
+        :param image_path: путь к файлу изображения
+        :param visualize: показывать ли интерактивную визуализацию (по умолчанию True)
+        :param content_type: MIME-тип файла для валидации формата (опционально)
+        :return: словарь с ключами 'edge_percent' (процент границ) и 'is_good_quality' (булево значение)
+        :raises ValueError: если файл не найден, повреждён или имеет неправильный формат
         """
         with open(image_path, 'rb') as f:
             content = f.read()
@@ -47,9 +64,20 @@ class ImageQualityAnalyzer:
 
         return result
         
-    def process(self, img):
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    def process(self, img: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """
+        Обрабатывает изображение для выделения границ.
 
+        Применяет фильтр Лапласиана для выделения границ, конвертирует в абсолютные значения
+        и выполняет пороговую бинаризацию.
+
+        :param img: входное изображение в формате BGR (H, W, 3)
+        :return: кортеж (filtered_abs, edges_binary, gray) где:
+                 - filtered_abs: отклик фильтра в абсолютных значениях (H, W)
+                 - edges_binary: бинаризованная маска границ (H, W)
+                 - gray: исходное изображение в оттенках серого (H, W)
+        """
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         kernel = np.array([
             [-1, -1, -1],
             [-1,  8, -1],
@@ -68,8 +96,14 @@ class ImageQualityAnalyzer:
 
         return filtered_abs, edges, gray
 
-    def _visualize(self, img, filtered, edges):
+    def _visualize(self, img: np.ndarray, filtered: np.ndarray, edges: np.ndarray) -> None:
+        """
+        Показывает интерактивную визуализацию результатов анализа в 4 подграфиках.
 
+        :param img: исходное изображение в формате BGR
+        :param filtered: отклик фильтра в абсолютных значениях
+        :param edges: бинаризованная маска границ
+        """
         overlay = img.copy()
         overlay[edges > 0] = [0, 0, 255]
 
@@ -98,7 +132,15 @@ class ImageQualityAnalyzer:
         plt.tight_layout()
         plt.show()
         
-    def visualize_image(self, img, filtered, edges):
+    def visualize_image(self, img: np.ndarray, filtered: np.ndarray, edges: np.ndarray) -> np.ndarray:
+        """
+        Создаёт композитное изображение 2x2 с результатами анализа.
+
+        :param img: исходное изображение в формате BGR
+        :param filtered: отклик фильтра в абсолютных значениях
+        :param edges: бинаризованная маска границ
+        :return: композитное изображение формата (2*H, 2*W, 3) в формате BGR
+        """
         overlay = img.copy()
         overlay[edges > 0] = [0, 0, 255]
 
@@ -109,7 +151,15 @@ class ImageQualityAnalyzer:
     
     def get_visualized_report(self, image_path: str, content_type: str = None) -> bytes:
         """
-        Полный цикл: расчет и генерация композитного изображения в байтах.
+        Генерирует композитный отчёт анализа качества в формате PNG.
+
+        Выполняет полный цикл анализа, создаёт композитное изображение 2x2
+        (исходное, фильтр, границы, наложение) и кодирует в PNG байты.
+
+        :param image_path: путь к файлу изображения
+        :param content_type: MIME-тип файла для валидации (опционально)
+        :return: PNG изображение в виде байт-строки, готовое для отправки по HTTP
+        :raises ValueError: если файл не найден, повреждён или имеет неправильный формат
         """
         with open(image_path, 'rb') as f:
             content = f.read()

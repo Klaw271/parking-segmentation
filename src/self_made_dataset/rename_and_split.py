@@ -1,6 +1,5 @@
 import os
 import random
-from pathlib import Path
 
 # Простая транслитерация кириллицы
 CYRILLIC_TO_LATIN = {
