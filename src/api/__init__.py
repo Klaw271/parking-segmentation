@@ -18,6 +18,3 @@ REST API модуль для системы анализа занятости п
       -F "image_file=@parking.jpg"
 """
 
-from .main import app
-
-__all__ = ["app"]

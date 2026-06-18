@@ -10,10 +10,4 @@
 Основная точка входа - ParkingPipeline класс из parking_monitoring модуля.
 """
 
-from .parking_monitoring import ParkingPipeline
-from .api import app
 
-__all__ = [
-    "ParkingPipeline",
-    "app",
-]
